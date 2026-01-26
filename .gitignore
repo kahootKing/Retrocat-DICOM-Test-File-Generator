@@ -1,1 +1,5 @@
+## Specify what folders/files should be ignored when commiting to github repository.
+
+## Visual Studio temporary files 
+## --- This is a hidden folder in the same directory as the .slnx (solution) file.
 .vs/

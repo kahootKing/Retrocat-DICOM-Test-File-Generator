@@ -23,7 +23,7 @@ def create_log_dir(rootPath):
             os.mkdir(logDir)
             write_log_file(logDir, f"The logging directory for this program did not exist and has been made: {logDir}", 3)
         except:
-            print(f"The logging directory at {logDir} could not be created. Please check the file write permissions for the current Window's user.")
+            print(f"The logging directory at {logDir} could not be created. Please check the file write permissions for the current Windows user.")
     return logDir
 
 
@@ -54,7 +54,7 @@ def write_log_file(logDir, logString, logType=1):
         with open (todayLog, 'a') as file:
             file.write(currentTime + ": " + logPrefix + logString + "\n")
     except:
-        print(f"The logging file at {todayLog} could not be written to. Please check the file write permissions for the current Window's user.")
+        print(f"The logging file at {todayLog} could not be written to. Please check the file write permissions for the current Windows user.")
 
     
 

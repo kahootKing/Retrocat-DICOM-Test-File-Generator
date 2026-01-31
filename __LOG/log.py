@@ -13,48 +13,53 @@ from datetime import datetime
 # -- (Log) Functions -- #
 
 def create_log_dir(rootPath):
+    canLog = True
     currentDate = get_date_time()[0]
     logDir = rootPath + r"\log\\"
-    newLogDir = os.path.exists(logDir)
-    if newLogDir:
-        write_log_file(logDir, f"The logging directory for this program already exists: {logDir}", 3) 
+    logDirExists = os.path.exists(logDir)
+    if logDirExists:
+        canLog = write_log_file(logDir, f"The logging directory for this program already exists: {logDir}", canLog, 4) 
     else:
         try:
             os.mkdir(logDir)
-            write_log_file(logDir, f"The logging directory for this program did not exist and has been made: {logDir}", 3)
+            canLog = write_log_file(logDir, f"The logging directory for this program did not exist and has been made: {logDir}", canLog, 4)
         except:
-            print(f"The logging directory at {logDir} could not be created. Please check the file write permissions for the current Windows user.")
-    return logDir
+            print(f"The logging directory at {logDir} could not be created. Please check the file write permissions for the current Windows user.") ## replace with popup
+            canLog = False
+    return logDir, canLog
 
 
-def write_log_file(logDir, logString, logType=1):
-    
+def write_log_file(logDir, logString, canLog=False, logType=1):    
     match logType:
         case 1:
-            logPrefix = "|~INFO~| "
-        case 2:
-            logPrefix = "|~ERROR~| "
-        case 3:
-            logPrefix = "|~INITIALIZE~| "
-        case 4:
-            logPrefix = "|~SHUTDOWN~| "
-        case 5:
-            logPrefix = "|~DICOM~| "
-        case 6:
-            logPrefix = "|~HL7~| "
-        case 7:
             logPrefix = ""
+        case 2:
+            logPrefix = "|~INFO~| "
+        case 3:
+            logPrefix = "|~ERROR~| "
+        case 4:
+            logPrefix = "|~INITIALIZE~| "
+        case 5:
+            logPrefix = "|~SHUTDOWN~| "
+        case 6:
+            logPrefix = "|~DICOM~| "
+        case 7:
+            logPrefix = "|~HL7~| "
         case _:
             logPrefix = "|~~| "
 
-    todayLog = create_log_file(logDir)
-    logString = str(logString)
-    currentTime = get_date_time()[1]
-    try:
-        with open (todayLog, 'a') as file:
-            file.write(currentTime + ": " + logPrefix + logString + "\n")
-    except:
-        print(f"The logging file at {todayLog} could not be written to. Please check the file write permissions for the current Windows user.")
+    if canLog:
+        todayLog, canLog = create_log_file(logDir, canLog)
+        if canLog:
+            logString = str(logString)
+            currentTime = get_date_time()[1]
+            try:
+                with open (todayLog, 'a') as file:
+                    file.write(currentTime + ": " + logPrefix + logString + "\n")
+            except:
+                print(f"The logging file at {todayLog} could not be written to. Please check the file write permissions for the current Windows user.") ## replace with popup
+                canLog = False
+    return canLog
 
     
 
@@ -65,14 +70,16 @@ def get_date_time():
 
 
 
-def create_log_file(logDir):
-    currentDate = get_date_time()[0]
-    todayLog = logDir + 'log_' + currentDate + ".txt"
-    todayLogExists = os.path.exists(todayLog)
-    if todayLogExists == False:
-        try:
-            with open (todayLog, 'w') as file:
-                pass
-        except:
-            print(f"The logging file at {todayLog} cannot be made. Please check the file write permissions for the current Window's user.")
-    return todayLog
+def create_log_file(logDir, canLog=False):
+    if canLog:
+        currentDate = get_date_time()[0]
+        todayLog = logDir + 'log_' + currentDate + ".txt"
+        todayLogExists = os.path.exists(todayLog)
+        if todayLogExists == False:
+            try:
+                with open (todayLog, 'w') as file:
+                    pass
+            except:
+                print(f"The logging file at {todayLog} cannot be made. Please check the file write permissions for the current Windows user.") ## replace with popup
+                canLog = False
+        return todayLog, canLog

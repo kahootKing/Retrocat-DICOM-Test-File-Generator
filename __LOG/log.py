@@ -12,13 +12,13 @@ from datetime import datetime
 
 # -- (Log) Functions -- #
 
-def create_log_dir(rootPath):
+def create_log_dir():
     canLog = True
-    currentDate = get_date_time()[0]
-    logDir = rootPath + r"\log\\"
+    logDir = os.getcwd() + r"\log\\"
     logDirExists = os.path.exists(logDir)
     if logDirExists:
-        canLog = write_log_file(logDir, f"The logging directory for this program already exists: {logDir}", canLog, 4) 
+        currentDate = get_date_time()[0]
+        canLog = write_log_file(f"The logging directory for this program already exists: {logDir}", canLog, 4) 
     else:
         try:
             os.mkdir(logDir)
@@ -26,10 +26,10 @@ def create_log_dir(rootPath):
         except:
             print(f"The logging directory at {logDir} could not be created. Please check the file write permissions for the current Windows user.") ## replace with popup
             canLog = False
-    return logDir, canLog
+    return canLog
 
 
-def write_log_file(logDir, logString, canLog=False, logType=1):    
+def write_log_file(logString, canLog=False, logType=1):    
     match logType:
         case 1:
             logPrefix = ""
@@ -49,7 +49,8 @@ def write_log_file(logDir, logString, canLog=False, logType=1):
             logPrefix = "|~~| "
 
     if canLog:
-        todayLog, canLog = create_log_file(logDir, canLog)
+        logDir = os.getcwd() + r"\log\\"
+        todayLog, canLog = create_log_file()
         if canLog:
             logString = str(logString)
             currentTime = get_date_time()[1]
@@ -70,16 +71,17 @@ def get_date_time():
 
 
 
-def create_log_file(logDir, canLog=False):
-    if canLog:
-        currentDate = get_date_time()[0]
-        todayLog = logDir + 'log_' + currentDate + ".txt"
-        todayLogExists = os.path.exists(todayLog)
-        if todayLogExists == False:
-            try:
-                with open (todayLog, 'w') as file:
-                    pass
-            except:
-                print(f"The logging file at {todayLog} cannot be made. Please check the file write permissions for the current Windows user.") ## replace with popup
-                canLog = False
-        return todayLog, canLog
+def create_log_file():
+    canLog = True
+    logDir = os.getcwd() + r"\log\\"
+    currentDate = get_date_time()[0]
+    todayLog = logDir + 'log_' + currentDate + ".txt"
+    todayLogExists = os.path.exists(todayLog)
+    if todayLogExists == False:
+        try:
+            with open (todayLog, 'w') as file:
+                pass
+        except:
+            print(f"The logging file at {todayLog} cannot be made. Please check the file write permissions for the current Windows user.") ## replace with popup
+            canLog = False
+    return todayLog, canLog

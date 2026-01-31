@@ -4,10 +4,7 @@ import os
 import __LOG.log as log
 
 
-# Var. #
-rootPath = os.getcwd()
-
-# Initialize #
-logDir, canLog = log.create_log_dir(rootPath)
-canLog = log.write_log_file(logDir, f"The working directory for this program is: {rootPath}", canLog, 4)
-canLog = log.write_log_file(logDir, "-------------", canLog, 1)
+# Initialize Logs#
+canLog = log.create_log_dir()
+canLog = log.write_log_file(f"The working directory for this program is: {os.getcwd()}", canLog, 4)
+canLog = log.write_log_file("-------------", canLog, 1)

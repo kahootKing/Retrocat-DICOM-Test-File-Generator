@@ -3,7 +3,6 @@
 ## Visual Studio temporary files 
 ## --- This is a hidden folder in the same directory as the .slnx (solution) file.
 .vs/
-/__pycache__
 /log
-/__LOG/__pycache__
 *.user
+*.pyc

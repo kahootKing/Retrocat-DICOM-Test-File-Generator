@@ -3,8 +3,10 @@
 import os
 import __LOG.log as log
 
+# Initialize GUI #
+import __GUI.mainwindow as mainwin
 
-# Initialize Logs#
+# Initialize Logs #
 canLog = log.create_log_dir()
 canLog = log.write_log_file(f"The working directory for this program is: {os.getcwd()}", canLog, 4)
 canLog = log.write_log_file("-------------", canLog, 1)

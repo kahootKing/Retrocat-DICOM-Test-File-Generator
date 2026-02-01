@@ -14,7 +14,7 @@ from datetime import datetime
 
 def create_log_dir():
     canLog = True
-    logDir = os.getcwd() + r"\log\\"
+    logDir = os.getcwd() + "\\log\\"
     logDirExists = os.path.exists(logDir)
     if logDirExists:
         currentDate = get_date_time()[0]

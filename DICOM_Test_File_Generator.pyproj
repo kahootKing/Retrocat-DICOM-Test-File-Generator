@@ -29,6 +29,7 @@
     <Compile Include="__DATABASE\__init__.py" />
     <Compile Include="__DICOM\tag.py" />
     <Compile Include="__DICOM\__init__.py" />
+    <Compile Include="__GUI\mainwindow.py" />
     <Compile Include="__GUI\startup.py" />
     <Compile Include="__GUI\__init__.py" />
     <Compile Include="__LOG\log.py" />
@@ -41,6 +42,9 @@
     <Folder Include="__GUI\" />
     <Folder Include="__DATABASE\" />
     <Folder Include="__CONFIG\" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="__GUI\lilretrocat.ico" />
   </ItemGroup>
   <Import Project="$(MSBuildExtensionsPath32)\Microsoft\VisualStudio\v$(VisualStudioVersion)\Python Tools\Microsoft.PythonTools.targets" />
   <!-- Uncomment the CoreCompile target to enable the Build command in

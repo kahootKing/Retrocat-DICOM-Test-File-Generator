@@ -10,10 +10,10 @@ import tkinter as tk
 # Main Window Var. #
 widthMultip = 0.45  # Main window
 heightMultip = 0.75  # Main window
-
+print
 
 # Style Var. #
-fontStyle = "Arial"
+fontStyle = "Georgia"
 mainWinColor = "lavender blush"
 borderLineColor = "black"
 headerFontSize = 24
@@ -34,7 +34,7 @@ mainHeight = round(screenHeight *heightMultip)
 
 ## Define main window components based on screen resolution.
 mainWindow.title("Retrocat")
-mainWindow.iconbitmap(True, f"{os.getcwd()}\__GUI\lilretrocat.ico")
+mainWindow.iconbitmap(True, f"{os.getcwd()}\\__GUI\\lilretrocat.ico")
 mainWindow.geometry(f"{mainWidth}x{mainHeight}")
 mainWindow.resizable(True,True)
 mainWindow.configure(bg=mainWinColor)
@@ -55,7 +55,7 @@ headerLabel = tk.Label(header,
                         font=(fontStyle, headerFontSize),
                         fg=headerFontColor,
                         bg=mainWinColor)
-headerLabel.place(x=8, y=(round(headerHeight * 0.24)))
+headerLabel.place(x=8, y=(round(headerHeight * 0.2)))
 
 
 ## Define Frame (B): Current Step

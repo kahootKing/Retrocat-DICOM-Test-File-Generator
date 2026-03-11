@@ -9,8 +9,6 @@
 import os
 from datetime import datetime
 
-# Logging Variables
-# canLog = True
 # -- (Log) Functions -- #
 
 def create_log_dir():

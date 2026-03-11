@@ -46,7 +46,7 @@ def write_log_file(logString, logType=1):
         case 7:
             logPrefix = "|~HL7~| "
         case 8:
-            logPrefix = "|USER ACTION~| "
+            logPrefix = "|~USER ACTION~| "
         case _:
             logPrefix = "|~~| "
 

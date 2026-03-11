@@ -6,10 +6,20 @@
 # 
 # ** IMPORTANT ** It is the responsibility of the user to generate test files that do not violate HIPPA by using identifiable patient information.
 
+from os import getcwd
 
 # Initialize Application
-def main():
-    import initialize
 
+canLog = True ## Do not remove this, the definition of the canLog variable in __main__ is used directly every time the write_log_file method is called in __LOG.log
 if __name__ == "__main__":
-    main()
+
+    # Initialize Logs #
+    import __LOG.log as log
+    canLog = log.create_log_dir()
+
+    if canLog:
+        canLog = log.write_log_file(f"The working directory for this program is: {getcwd()}", 4)
+        log.write_log_file("-------------", 1)
+
+    # Initialize GUI #
+    import __GUI.mainwindow as mainwin

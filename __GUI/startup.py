@@ -1,0 +1,89 @@
+## startup.py
+#
+## This module controls the actions of the UI components upon the initialization of the application.
+## The UI elements in this module should be called within the mainwindow, which should have already been initialized with the application.
+
+import os
+import tkinter as tk
+from __GUI.mainwindow import mainHeight, mainWidth, mainWinColor, mainFontStyle
+from __GUI.mainwindow import mainWindow
+import __LOG.log as log
+
+
+# Variables for Drawing
+headerMultip = 0.1 # Top Header
+curStepMultip = 0.17
+headerFontSize = 24
+headerFontColor = "gray15"
+
+subHeaderFontSize = 20
+subHeaderFontColor = "gray50"
+
+textFontSize = 12
+textFontColor = "gray15"
+
+borderLineColor = "black"
+
+buttonHeightDiv  = 250
+buttonWidthDiv = 25
+buttonFontSize = 14
+
+
+# Calculated values commonly used in functions
+buttonHeight = round(mainHeight / buttonHeightDiv)
+buttonWidth = round(mainWidth / buttonWidthDiv)
+headerHeight = round(mainHeight * headerMultip)
+curStepHeight = round(mainHeight * curStepMultip)    
+
+
+# Buttons to Draw on App Initialization
+def draw_dcm_File_button():
+    chooseDCMFile = tk.Button(mainWindow,
+                             text = "Choose DICOM File (*.dcm)",
+                             font=(mainFontStyle, buttonFontSize),
+                             height=buttonHeight,
+                             width=buttonWidth,
+                             command=choose_DCM_file_click)
+    chooseDCMFile.place(x=mainWidth/4, y=mainHeight/4)
+
+
+# GUI to Draw after clicking "Start from Scratch"
+def draw_header(text=""):
+    header = tk.Frame(mainWindow,
+                      bg=mainWinColor,
+                      width= mainWidth,
+                      height= headerHeight,
+                      highlightthickness=1, 
+                      highlightbackground=borderLineColor)
+    header.place(x=0, y=0)
+    headerLabel = tk.Label(header, 
+                            text=text, 
+                            font=(mainFontStyle, headerFontSize),
+                            fg=headerFontColor,
+                            bg=mainWinColor)
+    headerLabel.place(x=8, y=(round(headerHeight * 0.2)))
+
+
+def draw_current_Step():                    
+    curStep = tk.Frame(mainWindow,
+                      bg=mainWinColor,
+                      width= mainWidth,
+                      height= curStepHeight,
+                      highlightthickness=1, 
+                      highlightbackground=borderLineColor)
+    curStep.place(x=0, y=headerHeight)
+    curStepLabel = tk.Label(curStep, 
+                            text="1) Patient Demographics \n2) Study Information \n3) Series & Image Information \n4) Order Information \n5) Report Information", 
+                            font=(mainFontStyle, textFontSize),
+                            fg=headerFontColor,
+                            bg=mainWinColor,
+                            justify="left")
+    curStepLabel.place(x=4, y=(round(curStepHeight * 0.12)))
+
+
+
+## Functions to call after clicking buttons.
+
+def choose_DCM_file_click():
+    draw_header("hi")
+    log.write_log_file("User clicked the 'Choose DICOM File' button [")

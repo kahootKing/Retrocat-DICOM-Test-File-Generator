@@ -86,4 +86,4 @@ def draw_current_Step():
 
 def choose_DCM_file_click():
     draw_header("hi")
-    log.write_log_file("User clicked the 'Choose DICOM File' button [")
+    log.write_log_file("User clicked the 'Choose DICOM File' button.", 8)

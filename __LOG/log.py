@@ -9,7 +9,8 @@
 import os
 from datetime import datetime
 
-
+# Logging Variables
+# canLog = True
 # -- (Log) Functions -- #
 
 def create_log_dir():
@@ -18,7 +19,7 @@ def create_log_dir():
     logDirExists = os.path.exists(logDir)
     if logDirExists:
         currentDate = get_date_time()[0]
-        canLog = write_log_file(f"The logging directory for this program already exists: {logDir}", canLog, 4) 
+        canLog = write_log_file(f"The logging directory for this program already exists: {logDir}", 4) 
     else:
         try:
             os.mkdir(logDir)
@@ -29,7 +30,8 @@ def create_log_dir():
     return canLog
 
 
-def write_log_file(logString, canLog=False, logType=1):    
+def write_log_file(logString, logType=1):
+    from __main__ import canLog
     match logType:
         case 1:
             logPrefix = ""
@@ -45,6 +47,8 @@ def write_log_file(logString, canLog=False, logType=1):
             logPrefix = "|~DICOM~| "
         case 7:
             logPrefix = "|~HL7~| "
+        case 8:
+            logPrefix = "|USER ACTION~| "
         case _:
             logPrefix = "|~~| "
 

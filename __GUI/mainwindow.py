@@ -10,7 +10,6 @@ import tkinter as tk
 # Main Window Var. #
 widthMultip = 0.45  # Main window
 heightMultip = 0.75  # Main window
-print
 
 # Style Var. #
 fontStyle = "Georgia"

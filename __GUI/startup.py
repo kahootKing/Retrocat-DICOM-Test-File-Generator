@@ -7,6 +7,7 @@ import os
 import tkinter as tk
 from __GUI.mainwindow import mainHeight, mainWidth, mainWinColor, mainFontStyle
 from __GUI.mainwindow import mainWindow
+import __GUI.popup as popup
 import __LOG.log as log
 
 
@@ -15,15 +16,11 @@ headerMultip = 0.1 # Top Header
 curStepMultip = 0.17
 headerFontSize = 24
 headerFontColor = "gray15"
-
 subHeaderFontSize = 20
 subHeaderFontColor = "gray50"
-
 textFontSize = 12
 textFontColor = "gray15"
-
 borderLineColor = "black"
-
 buttonHeightDiv  = 250
 buttonWidthDiv = 25
 buttonFontSize = 14
@@ -85,5 +82,6 @@ def draw_current_Step():
 ## Functions to call after clicking buttons.
 
 def choose_DCM_file_click():
-    draw_header("hi")
+    draw_header("Choose DICOM File(s) to Update")
+    popup.define_popup("hey","yo")
     log.write_log_file("User clicked the 'Choose DICOM File' button.", 8)

@@ -8,6 +8,7 @@
 
 import os
 from datetime import datetime
+from tkinter import messagebox # used to display a popup if there is a logging error (messagebox.showerror).
 
 # -- (Log) Functions -- #
 
@@ -23,7 +24,7 @@ def create_log_dir():
             os.mkdir(logDir)
             canLog = write_log_file(logDir, f"The logging directory for this program did not exist and has been made: {logDir}", canLog, 4)
         except:
-            print(f"The logging directory at {logDir} could not be created. Please check the file write permissions for the current Windows user.") ## replace with popup
+            messagebox.showerror("Logging Directory Error", f"The logging directory at {logDir} could not be created. Please check the file write permissions for the current Windows user.")
             canLog = False
     return canLog
 
@@ -60,7 +61,7 @@ def write_log_file(logString, logType=1):
                 with open (todayLog, 'a') as file:
                     file.write(currentTime + ": " + logPrefix + logString + "\n")
             except:
-                print(f"The logging file at {todayLog} could not be written to. Please check the file write permissions for the current Windows user.") ## replace with popup
+                messagebox.showerror("Logging File Write Error", f"The logging file at {todayLog} could not be written to. Please check the file write permissions for the current Windows user.")
                 canLog = False
     return canLog
 
@@ -84,6 +85,6 @@ def create_log_file():
             with open (todayLog, 'w') as file:
                 pass
         except:
-            print(f"The logging file at {todayLog} cannot be made. Please check the file write permissions for the current Windows user.") ## replace with popup
+            messagebox.showerror("Logging File Create Error", f"The logging file at {todayLog} cannot be made. Please check the file write permissions for the current Windows user.")
             canLog = False
     return todayLog, canLog

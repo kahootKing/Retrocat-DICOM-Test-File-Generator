@@ -16,7 +16,6 @@ mainFontStyle = "Georgia"
 mainWinColor = "lavender blush"
 
 
-
 ## Define main window as a Tk() class instance & obtain screen resolution.
 mainWindow = tk.Tk()
 screenWidth = mainWindow.winfo_screenwidth()

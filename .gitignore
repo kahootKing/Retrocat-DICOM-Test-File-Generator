@@ -6,3 +6,4 @@
 /log
 *.user
 *.pyc
+/DICOM Test Files

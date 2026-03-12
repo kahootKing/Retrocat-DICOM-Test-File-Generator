@@ -21,7 +21,7 @@ mainWindow = tk.Tk()
 screenWidth = mainWindow.winfo_screenwidth()
 screenHeight = mainWindow.winfo_screenheight()
 mainWidth = round(screenWidth * widthMultip)
-mainHeight = round(screenHeight *heightMultip)
+mainHeight = round(screenHeight * heightMultip)
 
 
 ## Define main window components based on screen resolution.
@@ -33,9 +33,9 @@ mainWindow.configure(bg=mainWinColor)
 
 
 ## Step (1): Draw Startup UI
-import __GUI.startup as startup
-startup.draw_dcm_File_button()
-startup.draw_header("Select an Option")
+import __GUI.elements as elements
+elements.draw_dcm_File_button()
+elements.draw_header("Select an Option")
 
 
 ## Draw main window.

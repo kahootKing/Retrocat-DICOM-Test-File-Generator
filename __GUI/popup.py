@@ -11,22 +11,24 @@ from __GUI.mainwindow import mainWindow
 
 
 ## Define drawing variables for popups
-popupFontSize = 14
+popupFontSize = 13
+popupPosOffset = 50
 
 
 # Calculated values commonly used in functions
 popupWidth = round(mainWidth/2)
 popupHeight = round(mainHeight/5)
+popup_x = round((mainWidth/2)-(popupWidth/2))+popupPosOffset ## center popup with respect to the mainWindow
+popup_y = round((mainHeight/2)-(popupHeight/2))+popupPosOffset ## center popup with respect to the mainWindow
 
 
 ## Define popup window as a Tk class instance
 def define_popup(label="", text="", numButton=0):
     popup = tk.Toplevel(mainWindow)
-    popup.tkraise(mainWindow)
-    popup.geometry(f"{popupWidth}x{popupHeight}")
+    popup.geometry(f"{popupWidth}x{popupHeight}+{popup_x}+{popup_y}")
     popup.resizable(False,False)
 
-    label = tk.Label(popup, text=label)
+    label = tk.Label(popup, text=label, font=(mainFontStyle, popupFontSize))
     label.pack(side="top")
 
 

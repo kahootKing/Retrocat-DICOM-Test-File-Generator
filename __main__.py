@@ -25,4 +25,4 @@ if __name__ == "__main__":
         log.write_log_file("-------------", 1)
 
     # Initialize GUI #
-    import __GUI.mainwindow as mainwin
+    import __GUI.mainwindow

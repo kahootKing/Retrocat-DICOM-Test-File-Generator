@@ -1,2 +1,2 @@
-# DICOM_Test_File_Generator
+# Retrocat
 Generates test DICOM files.

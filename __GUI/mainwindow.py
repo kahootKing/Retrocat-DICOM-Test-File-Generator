@@ -31,6 +31,10 @@ mainWindow.geometry(f"{mainWidth}x{mainHeight}")
 mainWindow.resizable(False,False)
 mainWindow.configure(bg=mainWinColor)
 
+# Initialize an instance of a popup, which should be hidden
+#popup = tk.Toplevel(mainWindow)
+#popup.withdraw()
+
 
 ## Step (1): Draw Startup UI
 import __GUI.elements as elements

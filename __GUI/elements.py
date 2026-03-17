@@ -5,6 +5,7 @@
 
 import os
 import tkinter as tk
+from tkinter import filedialog
 from __GUI.mainwindow import mainHeight, mainWidth, mainWinColor, mainFontStyle
 from __GUI.mainwindow import mainWindow
 import __GUI.popup as popup
@@ -44,7 +45,7 @@ def draw_dcm_File_button():
     chooseDCMFile.place(x=mainWidth/4, y=mainHeight/4)
 
 
-# GUI to Draw after clicking "Start from Scratch"
+# General GUI Elements
 def draw_header(text=""):
     header = tk.Frame(mainWindow,
                       bg=mainWinColor,
@@ -82,6 +83,15 @@ def draw_current_Step():
 ## Functions to call after clicking buttons.
 
 def choose_DCM_file_click():
-    draw_header("Choose DICOM File(s) to Update")
-    popup.define_popup("hey","yo")
-    log.write_log_file("User clicked the 'Choose DICOM File' button.", 8)
+    log.write_log_file("User clicked the 'Choose DICOM File(s)' button.", 8)
+    dcmFilePath = filedialog.askopenfilenames(
+        initialdir=os.getcwd(),
+        title="Choose DICOM Image File(s) -- (*.dcm or *.zip)",
+        filetypes=(("DICOM (*.dcm)","*.dcm"), 
+                   ("Zip (*.zip)","*.zip"),
+                   ("All Files (*)","*"))
+    )
+    if dcmFilePath:
+        log.write_log_file(f"User selected the following file(s): {dcmFilePath}.", 8)
+        draw_header("Choose DICOM File(s) to Update")
+        popup.draw_anonymize_confirmation()

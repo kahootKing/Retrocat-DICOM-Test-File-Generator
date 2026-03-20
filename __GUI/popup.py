@@ -33,7 +33,7 @@ popupButton_y = round(popupHeight/2)
 
 # Functions after Clicking Buttons in Popups
 def cancel_popup():
-    log.write_log_file("User clicked the Cancel button", 8)
+    log.write_log_file("User clicked the Cancel button.", 8)
     popup.withdraw()
 
 
@@ -74,6 +74,7 @@ def define_basic_popup(title="", label="", yes_Command="", no_Command="", cancel
                           command=yes_Command)
     yesButton.place(x=rightButton_x, y=popupButton_y)
     popup.deiconify()
+    log.write_log_file("The 'Anonymize DICOM File(s)' popup was displayed.", 9)
 
 
 # Functions for Drawing Various Popups

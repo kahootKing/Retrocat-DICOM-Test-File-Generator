@@ -6,6 +6,7 @@
 import os
 import tkinter as tk
 from tkinter import filedialog
+from __GUI import mainwindow
 from __GUI.mainwindow import mainHeight, mainWidth, mainWinColor, mainFontStyle
 from __GUI.mainwindow import mainWindow, popup
 import __GUI.popup
@@ -81,6 +82,14 @@ def draw_current_Step():
 
 
 ## Functions to call after clicking buttons.
+def close_mainWindow():
+    log.write_log_file(
+        """User closed the program.
+-----------------------------------------------------------------------------
+-----------------------------------------------------------------------------
+-----------------------------------------------------------------------------""", 5)
+    mainWindow.destroy()
+
 
 def choose_DCM_file_click():
     log.write_log_file("User clicked the 'Choose DICOM File(s)' button.", 8)

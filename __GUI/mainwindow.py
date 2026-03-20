@@ -44,5 +44,9 @@ elements.draw_dcm_File_button()
 elements.draw_header("Select an Option")
 
 
+## Specify the behavior of the application when it is closed by the user
+mainWindow.protocol("WM_DELETE_WINDOW", elements.close_mainWindow)
+
+
 ## Draw main window.
 mainWindow.mainloop()

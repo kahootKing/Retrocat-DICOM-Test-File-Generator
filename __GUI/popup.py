@@ -7,10 +7,8 @@
 import tkinter as tk
 import __LOG.log as log
 from __GUI.mainwindow import mainHeight, mainWidth, mainWinColor, mainFontStyle
-from __GUI.mainwindow import mainWindow
+from __GUI.mainwindow import mainWindow, popup
 
-popup = tk.Toplevel(mainWindow)
-popup.withdraw()
 
 ## Define drawing variables for popups
 popupFontSize = 11
@@ -35,13 +33,12 @@ popupButton_y = round(popupHeight/2)
 
 # Functions after Clicking Buttons in Popups
 def cancel_popup():
-    print("123")
+    log.write_log_file("User clicked the Cancel button", 8)
     popup.withdraw()
 
 
 ## Define popup window as a Tk class instance
 def define_basic_popup(title="", label="", yes_Command="", no_Command="", cancel_Command=cancel_popup):
-    popup = tk.Toplevel(mainWindow)
     popup.title(title)
     popup.geometry(f"{popupWidth}x{popupHeight}+{popup_x}+{popup_y}")
     popup.resizable(False,False)
@@ -52,14 +49,6 @@ def define_basic_popup(title="", label="", yes_Command="", no_Command="", cancel
     message.pack(side="top", 
                  padx=10, 
                  pady=10)
-
-    yesButton = tk.Button(popup, 
-                          text="Yes", 
-                          font =(mainFontStyle, popupFontSize),
-                          width = popupButtonWidth,
-                          height = popupButtonHeight,
-                          command=yes_Command)
-    yesButton.place(x=rightButton_x, y=popupButton_y)
 
     noButton = tk.Button(popup, 
                          text="No",
@@ -77,7 +66,14 @@ def define_basic_popup(title="", label="", yes_Command="", no_Command="", cancel
                        command=cancel_Command)
     cancelButton.place(x=centerButton_x, y=popupButton_y)
 
-    return popup
+    yesButton = tk.Button(popup, 
+                          text="Yes", 
+                          font =(mainFontStyle, popupFontSize),
+                          width = popupButtonWidth,
+                          height = popupButtonHeight,
+                          command=yes_Command)
+    yesButton.place(x=rightButton_x, y=popupButton_y)
+    popup.deiconify()
 
 
 # Functions for Drawing Various Popups

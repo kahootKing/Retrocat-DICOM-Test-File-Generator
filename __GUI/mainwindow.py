@@ -31,13 +31,15 @@ mainWindow.geometry(f"{mainWidth}x{mainHeight}")
 mainWindow.resizable(False,False)
 mainWindow.configure(bg=mainWinColor)
 
-# Initialize an instance of a popup, which should be hidden
-#popup = tk.Toplevel(mainWindow)
-#popup.withdraw()
+
+#Initialize an instance of a popup, which should be hidden
+popup = tk.Toplevel(mainWindow)
+popup.withdraw() #when calling functions that draw popups, be sure to call popup.deiconify() to actually redraw the popup.
 
 
 ## Step (1): Draw Startup UI
 import __GUI.elements as elements
+import __GUI.popup as popup
 elements.draw_dcm_File_button()
 elements.draw_header("Select an Option")
 

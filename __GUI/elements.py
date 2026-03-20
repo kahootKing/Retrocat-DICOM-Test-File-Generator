@@ -7,14 +7,14 @@ import os
 import tkinter as tk
 from tkinter import filedialog
 from __GUI.mainwindow import mainHeight, mainWidth, mainWinColor, mainFontStyle
-from __GUI.mainwindow import mainWindow
-import __GUI.popup as popup
+from __GUI.mainwindow import mainWindow, popup
+import __GUI.popup
 import __LOG.log as log
 
 
 # Variables for Drawing
 headerMultip = 0.1 # Top Header
-curStepMultip = 0.17
+curStepMultip = 0.17 
 headerFontSize = 24
 headerFontColor = "gray15"
 subHeaderFontSize = 20
@@ -94,4 +94,4 @@ def choose_DCM_file_click():
     if dcmFilePath:
         log.write_log_file(f"User selected the following file(s): {dcmFilePath}.", 8)
         draw_header("Choose DICOM File(s) to Update")
-        popup.draw_anonymize_confirmation()
+        __GUI.popup.draw_anonymize_confirmation()

@@ -39,10 +39,10 @@ def cancel_popup():
 
 
 ## Define popup window as a Tk class instance
-def define_basic_popup(title="", label="", yes_Command="", no_Command="", cancel_Command=cancel_popup):
+def define_basic_popup(title="", label="", yes_Label = "Yes", yes_Command="", no_Label = "No", no_Command="", cancel_Label = "Cancel", cancel_Command=cancel_popup):
     popup.title(title)
     popup.geometry(f"{popupWidth}x{popupHeight}+{popup_x}+{popup_y}")
-    popup.resizable(True,False)
+    popup.resizable(False,False)
     message = tk.Message(popup, 
                          text=label, 
                          font=(mainFontStyle, popupFontSize), 
@@ -52,7 +52,7 @@ def define_basic_popup(title="", label="", yes_Command="", no_Command="", cancel
                  pady=10)
 
     noButton = tk.Button(popup, 
-                         text="No",
+                         text=no_Label,
                          font =(mainFontStyle, popupFontSize),
                          width = popupButtonWidth,
                          height = popupButtonHeight,
@@ -60,7 +60,7 @@ def define_basic_popup(title="", label="", yes_Command="", no_Command="", cancel
     noButton.place(x=leftButton_x, y=popupButton_y)
 
     cancelButton = tk.Button(popup, 
-                       text="Cancel",
+                       text=cancel_Label,
                        font =(mainFontStyle, popupFontSize),
                        width = popupButtonWidth,
                        height = popupButtonHeight,
@@ -68,13 +68,14 @@ def define_basic_popup(title="", label="", yes_Command="", no_Command="", cancel
     cancelButton.place(x=centerButton_x, y=popupButton_y)
 
     yesButton = tk.Button(popup, 
-                          text="Yes", 
+                          text=yes_Label, 
                           font =(mainFontStyle, popupFontSize),
                           width = popupButtonWidth,
                           height = popupButtonHeight,
                           command=yes_Command)
     yesButton.place(x=rightButton_x, y=popupButton_y)
-    popup.deiconify()
+
+    popup.deiconify() # This is required to show the popup, which may have previously been withdrawn.
     log.write_log_file("The 'Anonymize DICOM File(s)' popup was displayed.", 9)
 
 

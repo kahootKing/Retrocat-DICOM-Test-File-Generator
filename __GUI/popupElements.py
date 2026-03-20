@@ -6,8 +6,8 @@
 
 import tkinter as tk
 import __LOG.log as log
-from __GUI.mainwindow import mainHeight, mainWidth, mainWinColor, mainFontStyle
-from __GUI.mainwindow import mainWindow, popup
+from __GUI.rootUI import mainHeight, mainWidth, mainFontStyle
+from __GUI.rootUI import mainWindow, popup
 
 
 ## Define drawing variables for popups
@@ -35,13 +35,14 @@ popupButton_y = round(popupHeight/2)
 def cancel_popup():
     log.write_log_file("User clicked the Cancel button.", 8)
     popup.withdraw()
+    
 
 
 ## Define popup window as a Tk class instance
 def define_basic_popup(title="", label="", yes_Command="", no_Command="", cancel_Command=cancel_popup):
     popup.title(title)
     popup.geometry(f"{popupWidth}x{popupHeight}+{popup_x}+{popup_y}")
-    popup.resizable(False,False)
+    popup.resizable(True,False)
     message = tk.Message(popup, 
                          text=label, 
                          font=(mainFontStyle, popupFontSize), 

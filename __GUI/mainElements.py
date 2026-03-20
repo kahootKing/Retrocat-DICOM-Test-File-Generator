@@ -6,10 +6,9 @@
 import os
 import tkinter as tk
 from tkinter import filedialog
-from __GUI import mainwindow
-from __GUI.mainwindow import mainHeight, mainWidth, mainWinColor, mainFontStyle
-from __GUI.mainwindow import mainWindow, popup
-import __GUI.popup
+from __GUI.rootUI import mainHeight, mainWidth, mainWinColor, mainFontStyle
+from __GUI.rootUI import mainWindow, popup
+import __GUI.popupElements
 import __LOG.log as log
 
 
@@ -103,4 +102,4 @@ def choose_DCM_file_click():
     if dcmFilePath:
         log.write_log_file(f"User selected the following file(s): {dcmFilePath}.", 8)
         draw_header("Choose DICOM File(s) to Update")
-        __GUI.popup.draw_anonymize_confirmation()
+        __GUI.popupElements.draw_anonymize_confirmation()

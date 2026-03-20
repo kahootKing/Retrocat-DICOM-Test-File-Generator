@@ -28,9 +28,9 @@
     <Compile Include="__DATABASE\__init__.py" />
     <Compile Include="__DICOM\tag.py" />
     <Compile Include="__DICOM\__init__.py" />
-    <Compile Include="__GUI\mainwindow.py" />
-    <Compile Include="__GUI\popup.py" />
-    <Compile Include="__GUI\elements.py" />
+    <Compile Include="__GUI\rootUI.py" />
+    <Compile Include="__GUI\popupElements.py" />
+    <Compile Include="__GUI\mainElements.py" />
     <Compile Include="__GUI\__init__.py" />
     <Compile Include="__LOG\log.py" />
     <Compile Include="__LOG\__init__.py" />

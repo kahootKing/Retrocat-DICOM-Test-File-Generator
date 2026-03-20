@@ -26,4 +26,4 @@ if __name__ == "__main__":
         log.write_log_file("-------------", 1)
 
     # Initialize GUI #
-    import __GUI.mainwindow
+    import __GUI.rootUI

@@ -1,6 +1,6 @@
 ## elements.py
 #
-## This module controls the actions of the UI components upon the initialization of the application.
+## This module controls the actions of the UI components within the root of the application (known as mainWindow).
 ## The UI elements in this module should be called within the mainwindow, which should have already been initialized with the application.
 
 import os

@@ -35,6 +35,8 @@ popupButton_y = round(popupHeight/2)
 def cancel_popup():
     log.write_log_file("User clicked the Cancel button.", 8)
     popup.withdraw()
+    for widget in popup.winfo_children(): #destroy each widget within the popup. This is so that when it is redrawn, the popup is a clean slate.
+        widget.destroy()
     
 
 

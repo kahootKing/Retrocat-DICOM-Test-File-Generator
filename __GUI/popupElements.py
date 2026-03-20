@@ -7,7 +7,7 @@
 import tkinter as tk
 import __LOG.log as log
 from __GUI.rootUI import mainHeight, mainWidth, mainFontStyle
-from __GUI.rootUI import mainWindow, popup
+from __GUI.rootUI import popup
 
 
 ## Define drawing variables for popups

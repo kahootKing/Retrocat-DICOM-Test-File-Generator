@@ -33,10 +33,8 @@ popupButton_y = round(popupHeight/2)
 
 # Functions after Clicking Buttons in Popups
 def cancel_popup():
-    log.write_log_file("User clicked the Cancel button.", 8)
-    popup.withdraw()
-    for widget in popup.winfo_children(): #destroy each widget within the popup. This is so that when it is redrawn, the popup is a clean slate.
-        widget.destroy()
+    log.write_log_file("User clicked the Cancel button. Closing popup.", 8)
+    clear_hide_popup()
     
 
 
@@ -86,3 +84,7 @@ def draw_anonymize_confirmation():
     define_basic_popup(title="Anonymize File(s)?", label="Would you like to anonymize these DICOM files (according to the DICOM Standard Basic Profile Anonymization)?")
 
 
+def clear_hide_popup():
+    popup.withdraw()
+    for widget in popup.winfo_children(): #destroy each widget within the popup. This is so that when it is redrawn, the popup is a clean slate.
+        widget.destroy()

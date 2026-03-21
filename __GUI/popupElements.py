@@ -6,8 +6,9 @@
 
 import tkinter as tk
 import __LOG.log as log
-from __GUI.rootUI import mainHeight, mainWidth, mainFontStyle
-from __GUI.rootUI import popup
+from rootElem import mainHeight, mainWidth, mainFontStyle
+from rootElem import popup
+import __DICOM.dicomReadWrite as dicomReadWrite
 
 
 ## Define drawing variables for popups
@@ -35,11 +36,14 @@ popupButton_y = round(popupHeight/2)
 def cancel_popup():
     log.write_log_file("User clicked the Cancel button. Closing popup.", 8)
     clear_hide_popup()
-    
+
+def anonymize_dcmFile():
+    dicomReadWrite.read_files(filepath)
+    clear_hide_popup()
 
 
 ## Define popup window as a Tk class instance
-def define_basic_popup(title="", label="", yes_Label = "Yes", yes_Command="", no_Label = "No", no_Command="", cancel_Label = "Cancel", cancel_Command=cancel_popup):
+def define_basic_popup(title="", label="", yes_Label = "Yes", yes_Command=cancel_popup, no_Label = "No", no_Command=cancel_popup, cancel_Label = "Cancel", cancel_Command=cancel_popup):
     popup.title(title)
     popup.geometry(f"{popupWidth}x{popupHeight}+{popup_x}+{popup_y}")
     popup.resizable(False,False)
@@ -81,7 +85,7 @@ def define_basic_popup(title="", label="", yes_Label = "Yes", yes_Command="", no
 
 # Functions for Drawing Various Popups
 def draw_anonymize_confirmation():
-    define_basic_popup(title="Anonymize File(s)?", label="Would you like to anonymize these DICOM files (according to the DICOM Standard Basic Profile Anonymization)?")
+    define_basic_popup(title="Anonymize File(s)?", label="Would you like to anonymize these DICOM files (according to the DICOM Standard Basic Profile Anonymization)?", yes_Command=anonymize_dcmFile)
 
 
 def clear_hide_popup():

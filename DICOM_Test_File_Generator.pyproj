@@ -26,7 +26,7 @@
     <Compile Include="__CONFIG\__init__.py" />
     <Compile Include="__DATABASE\patient_data.py" />
     <Compile Include="__DATABASE\__init__.py" />
-    <Compile Include="__DICOM\tag.py" />
+    <Compile Include="__DICOM\dicomReadWrite.py" />
     <Compile Include="__DICOM\__init__.py" />
     <Compile Include="__GUI\rootUI.py" />
     <Compile Include="__GUI\popupElements.py" />

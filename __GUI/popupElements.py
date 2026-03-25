@@ -35,14 +35,21 @@ popupButton_y = round(popupHeight/2)
 
 # Functions after Clicking Buttons in Popups
 def cancel_popup():
-    log.write_log_file("User clicked the Cancel button. Closing popup.", 8)
+    log.write_log_file("User clicked the 'Cancel' button. Closing popup.", 8)
     clear_hide_popup()
 
 
 def anonymize_dcmFile(dcmFilePath):
-    log.write_log_file("User clicked the Yes button.", 8)
+    log.write_log_file("User clicked the 'Yes' button.", 8)
     log.write_log_file(f"Preparing to anonymize DICOM Files: {dcmFilePath}", 6)
     dicomReadWrite.anonymize_data(dcmFilePath)
+    clear_hide_popup()
+
+
+def read_dcmFile_no_anon(dcmFilePath):
+    log.write_log_file("User clicked the 'No' button.", 8)
+    log.write_log_file(f"Preparing to read DICOM Files without anonymizing: {dcmFilePath}", 6)
+    dicomReadWrite.read_files(dcmFilePath)
     clear_hide_popup()
 
 
@@ -103,7 +110,9 @@ def draw_anonymize_confirmation(dcmFilePath):
     define_basic_popup(title = "Anonymize File(s)?", 
                        label = "Would you like to anonymize these DICOM files (according to the DICOM Standard Basic Profile Anonymization)?", 
                        yes_Command = anonymize_dcmFile,
-                       yes_Args = dcmFilePath)
+                       yes_Args = dcmFilePath,
+                       no_Command = read_dcmFile_no_anon,
+                       no_Args = dcmFilePath)
 
 
 def clear_hide_popup():

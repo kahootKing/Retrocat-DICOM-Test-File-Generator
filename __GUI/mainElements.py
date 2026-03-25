@@ -105,3 +105,9 @@ def choose_DCM_file_click():
         popupElements.draw_anonymize_confirmation(dcmFilePath)
     else:
         log.write_log_file("User closed the File Explorer without choosing a file.", 8)
+
+
+## Startup UI Main Function
+def draw_startup_UI():
+    draw_dcm_File_button()
+    draw_header("Select an Option")

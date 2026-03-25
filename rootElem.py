@@ -40,8 +40,7 @@ popup.withdraw() #when calling functions that draw popups, be sure to call popup
 ## Draw Startup UI
 import __GUI.mainElements as mainElements
 import __GUI.popupElements as popupElements
-mainElements.draw_dcm_File_button()
-mainElements.draw_header("Select an Option")
+mainElements.draw_startup_UI()
 
 
 ## Specify the behavior of the application when it is closed by the user

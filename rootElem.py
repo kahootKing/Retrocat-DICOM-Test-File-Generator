@@ -1,6 +1,6 @@
-## mainwindow.py
+## rootElem.py
 #
-## This module controls the drawing of the main program window.
+## This module controls the drawing of the main program window.  It also defined the objects to be referenced in this project (mainWindow, popup, dcmFile, etc.)
 ## This module should be initialized upon app startup.
 
 import os
@@ -37,7 +37,7 @@ popup = tk.Toplevel(mainWindow)
 popup.withdraw() #when calling functions that draw popups, be sure to call popup.deiconify() to actually redraw the popup.
 
 
-## Step (1): Draw Startup UI
+## Draw Startup UI
 import __GUI.mainElements as mainElements
 import __GUI.popupElements as popupElements
 mainElements.draw_dcm_File_button()

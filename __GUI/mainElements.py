@@ -1,4 +1,4 @@
-## elements.py
+## mainElements.py
 #
 ## This module controls the actions of the UI components within the root of the application (known as mainWindow).
 ## The UI elements in this module should be called within the mainwindow, which should have already been initialized with the application.
@@ -7,7 +7,7 @@ import os
 import tkinter as tk
 from tkinter import filedialog
 from rootElem import mainHeight, mainWidth, mainWinColor, mainFontStyle
-from rootElem import mainWindow, popup
+from rootElem import mainWindow
 import __GUI.popupElements as popupElements
 import __LOG.log as log
 
@@ -92,6 +92,7 @@ def close_mainWindow():
 
 def choose_DCM_file_click():
     log.write_log_file("User clicked the 'Choose DICOM File(s)' button.", 8)
+    draw_header("Choose DICOM File(s) to Update")
     dcmFilePath = filedialog.askopenfilenames(
         initialdir=os.getcwd(),
         title="Choose DICOM Image File(s) -- (*.dcm or *.zip)",
@@ -101,5 +102,6 @@ def choose_DCM_file_click():
     )
     if dcmFilePath:
         log.write_log_file(f"User selected the following file(s): {dcmFilePath}.", 8)
-        draw_header("Choose DICOM File(s) to Update")
-        popupElements.draw_anonymize_confirmation()
+        popupElements.draw_anonymize_confirmation(dcmFilePath)
+    else:
+        log.write_log_file("User closed the File Explorer without choosing a file.", 8)

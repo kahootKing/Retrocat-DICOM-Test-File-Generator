@@ -1,9 +1,10 @@
-## popup.py
+## popupElements.py
 ##
 ## The purpose of this module is to define methods used to draw various popups.
 ##
 # This includes error popups, confirmation popups, and other user inputs.
 
+from ast import Lambda
 import tkinter as tk
 import __LOG.log as log
 from rootElem import mainHeight, mainWidth, mainFontStyle
@@ -37,13 +38,27 @@ def cancel_popup():
     log.write_log_file("User clicked the Cancel button. Closing popup.", 8)
     clear_hide_popup()
 
-def anonymize_dcmFile():
-    dicomReadWrite.read_files(filepath)
+
+def anonymize_dcmFile(dcmFilePath):
+    log.write_log_file("User clicked the Yes button.", 8)
+    log.write_log_file(f"Preparing to anonymize DICOM Files: {dcmFilePath}", 6)
+    dicomReadWrite.anonymize_data(dcmFilePath)
     clear_hide_popup()
 
 
 ## Define popup window as a Tk class instance
-def define_basic_popup(title="", label="", yes_Label = "Yes", yes_Command=cancel_popup, no_Label = "No", no_Command=cancel_popup, cancel_Label = "Cancel", cancel_Command=cancel_popup):
+def define_basic_popup(title = "", 
+                       label = "", 
+                       yes_Label = "Yes", 
+                       yes_Command = cancel_popup, 
+                       yes_Args = "",
+                       no_Label = "No",
+                       no_Command = cancel_popup,
+                       no_Args = "",
+                       cancel_Label = "Cancel",
+                       cancel_Command = cancel_popup,
+                       cancel_Args = ""):
+
     popup.title(title)
     popup.geometry(f"{popupWidth}x{popupHeight}+{popup_x}+{popup_y}")
     popup.resizable(False,False)
@@ -60,7 +75,7 @@ def define_basic_popup(title="", label="", yes_Label = "Yes", yes_Command=cancel
                          font =(mainFontStyle, popupFontSize),
                          width = popupButtonWidth,
                          height = popupButtonHeight,
-                         command=no_Command)
+                         command = lambda: no_Command(no_Args))  # lambda, combined with separatated arguments, is required to ensure the function does NOT immediately run if it has any arguments.
     noButton.place(x=leftButton_x, y=popupButton_y)
 
     cancelButton = tk.Button(popup, 
@@ -68,7 +83,7 @@ def define_basic_popup(title="", label="", yes_Label = "Yes", yes_Command=cancel
                        font =(mainFontStyle, popupFontSize),
                        width = popupButtonWidth,
                        height = popupButtonHeight,
-                       command=cancel_Command)
+                       command = lambda: cancel_Command(cancel_Args))  # lambda, combined with separatated arguments, is required to ensure the function does NOT immediately run if it has any arguments.
     cancelButton.place(x=centerButton_x, y=popupButton_y)
 
     yesButton = tk.Button(popup, 
@@ -76,7 +91,7 @@ def define_basic_popup(title="", label="", yes_Label = "Yes", yes_Command=cancel
                           font =(mainFontStyle, popupFontSize),
                           width = popupButtonWidth,
                           height = popupButtonHeight,
-                          command=yes_Command)
+                          command = lambda: yes_Command(yes_Args))  # lambda, combined with separatated arguments, is required to ensure the function does NOT immediately run if it has any arguments.
     yesButton.place(x=rightButton_x, y=popupButton_y)
 
     popup.deiconify() # This is required to show the popup, which may have previously been withdrawn.
@@ -84,8 +99,11 @@ def define_basic_popup(title="", label="", yes_Label = "Yes", yes_Command=cancel
 
 
 # Functions for Drawing Various Popups
-def draw_anonymize_confirmation():
-    define_basic_popup(title="Anonymize File(s)?", label="Would you like to anonymize these DICOM files (according to the DICOM Standard Basic Profile Anonymization)?", yes_Command=anonymize_dcmFile)
+def draw_anonymize_confirmation(dcmFilePath):
+    define_basic_popup(title = "Anonymize File(s)?", 
+                       label = "Would you like to anonymize these DICOM files (according to the DICOM Standard Basic Profile Anonymization)?", 
+                       yes_Command = anonymize_dcmFile,
+                       yes_Args = dcmFilePath)
 
 
 def clear_hide_popup():

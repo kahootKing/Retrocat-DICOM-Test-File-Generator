@@ -11,7 +11,7 @@ from random import randint
 
 ## DICOM Static Variables
 impClassUID = "1.2.7238.7553.751998"
-randPrefixUID = "1.2.173.3944"
+
 
 ## Functions Used in DICOM Attribute Writing
 def get_date_time():

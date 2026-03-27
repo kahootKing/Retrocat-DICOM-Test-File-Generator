@@ -4,9 +4,10 @@
 #
 
 from pydicom import dcmread
+import string
 import __LOG.log as log
 from datetime import datetime
-from random import randint
+from random import randint, choice
 
 
 ## DICOM Static Variables
@@ -20,7 +21,7 @@ def get_date_time():
     get_date_time()[0] = Current Date in YYMMDD format
     get_date_time()[1] = Current Time in HHmmSS format
     get_date_time()[2] = Current Date Time in UID format, so currentDate.CurrentTimeUID, 
-                             where Current Time UID is in HHmmSSffffff format
+                         where Current Time UID is in HHmmSSffffff format
     """
     currentDate = datetime.today().strftime('%Y%m%d')
     currentTime = datetime.today().strftime('%H%M%S')
@@ -85,8 +86,21 @@ def rand_DA_TM_DT(yrsPast = 10, yrsFuture = 0):
     randDT = randDA + randTM
     return randDA, randTM, randDT
 
+def rand_SH_LO(length = 12):
+    char = string.ascii_letters + string.digits
+    randVal = ""
+    for each in range(length):
+        randVal = f"{randVal}{choice(char)}"
+    print(randVal)
+    return randVal
+
 
 ## DICOM functions called in conjunction with the Base DICOM Functions
 def anonymize_data(dcmFilePath):
+    """
+    https://dicom.nema.org/medical/dicom/current/output/chtml/part15/chapter_e.html
+    """
     read_files(dcmFilePath)
     # anonymize files here
+
+

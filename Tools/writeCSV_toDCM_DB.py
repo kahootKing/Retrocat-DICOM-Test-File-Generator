@@ -1,3 +1,4 @@
+## Takes a .csv file as an input, which then writes to the DICOM Attribute .db file
 # uses SQLite
 
 import pandas

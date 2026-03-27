@@ -35,7 +35,7 @@ curStepHeight = round(mainHeight * curStepMultip)
 
 
 # Buttons to Draw on App Initialization
-def draw_dcm_File_button():
+def draw_dcm_file_button():
     chooseDCMFile = tk.Button(mainWindow,
                              text = "Choose DICOM File (*.dcm)",
                              font=(mainFontStyle, buttonFontSize),
@@ -43,6 +43,7 @@ def draw_dcm_File_button():
                              width=buttonWidth,
                              command=choose_DCM_file_click)
     chooseDCMFile.place(x=mainWidth/4, y=mainHeight/4)
+
 
 
 # General GUI Elements
@@ -109,5 +110,5 @@ def choose_DCM_file_click():
 
 ## Startup UI Main Function
 def draw_startup_UI():
-    draw_dcm_File_button()
     draw_header("Select an Option")
+    draw_dcm_file_button()

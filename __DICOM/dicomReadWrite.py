@@ -14,8 +14,9 @@ import sqlite3
 
 
 ## Connect to local DICOM Databases
-attributes = os.getcwd() + "\\db\\"
-
+attributes = os.getcwd() + "\\db\\attributes.db"
+db_attributes = sqlite3.connect(attributes)
+cur_attributes = db_attributes.cursor()
 
 
 ## DICOM Static Variables

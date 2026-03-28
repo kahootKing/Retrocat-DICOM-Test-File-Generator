@@ -5,6 +5,7 @@
 
 import os
 import tkinter as tk
+import __DICOM.dicomReadWrite as dicomReadWrite
 
 
 # Main Window Var. #
@@ -37,6 +38,10 @@ popup = tk.Toplevel(mainWindow)
 popup.withdraw() #when calling functions that draw popups, be sure to call popup.deiconify() to actually redraw the popup.
 
 
+## Create Directory for DICOM Files
+newFilePathDCM = dicomReadWrite.create_dcm_file_dir()
+
+
 ## Draw Startup UI
 import __GUI.mainElements as mainElements
 import __GUI.popupElements as popupElements
@@ -45,7 +50,7 @@ mainElements.draw_startup_UI()
 
 ## Specify the behavior of the application when it is closed by the user
 popup.protocol("WM_DELETE_WINDOW", popupElements.cancel_popup)
-mainWindow.protocol("WM_DELETE_WINDOW",mainElements.close_mainWindow)
+mainWindow.protocol("WM_DELETE_WINDOW", mainElements.close_mainWindow)
 
 
 ## Draw main window.

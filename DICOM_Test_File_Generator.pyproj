@@ -12,6 +12,9 @@
     <Name>DICOM_Test_File_Generator</Name>
     <RootNamespace>DICOM_Test_File_Generator</RootNamespace>
     <IsWindowsApplication>True</IsWindowsApplication>
+    <TestFramework>none</TestFramework>
+    <UnitTestPattern>test*.py</UnitTestPattern>
+    <UnitTestRootDirectory>.</UnitTestRootDirectory>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)' == 'Debug' ">
     <DebugSymbols>true</DebugSymbols>
@@ -44,6 +47,7 @@
     <Folder Include="__CONFIG\" />
   </ItemGroup>
   <ItemGroup>
+    <Content Include="__DATABASE\attributes.db" />
     <Content Include="__GUI\lilretrocat.ico" />
   </ItemGroup>
   <Import Project="$(MSBuildExtensionsPath32)\Microsoft\VisualStudio\v$(VisualStudioVersion)\Python Tools\Microsoft.PythonTools.targets" />

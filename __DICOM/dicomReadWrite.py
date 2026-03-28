@@ -8,10 +8,33 @@ import string
 import __LOG.log as log
 from datetime import datetime
 from random import randint, choice
+import os
+from tkinter import messagebox # used to display a popup if there is a logging error (messagebox.showerror).
+import sqlite3
+
+
+## Connect to local DICOM Databases
+attributes = os.getcwd() + "\\db\\"
+
 
 
 ## DICOM Static Variables
 impClassUID = "1.2.7238.7553.751998"
+
+## Functions for Writing to Files
+def create_dcm_file_dir():
+    newFilePathDCM = os.getcwd() + "\\DICOM Files\\"
+    if os.path.exists(newFilePathDCM):
+        log.write_log_file(f"The file directory for DICOM files created by this program already exists: {newFilePathDCM}", 4)
+    else:
+        try:
+            os.mkdir(newFilePathDCM)
+            log.write_log_file(f"The file directory for DICOM files did not exist and has been created: {newFilePathDCM}", 4)
+        except:
+            messagebox.showerror("DICOM File Directory Error", f"The DICOM file directory at {newFilePathDCM} could not be created. Please check the file write permissions for the current Windows user.")
+            log.write_log_file(f"The file directory at {newFilePathDCM} could not be created. New files will be created at {os.getcwd()}", 4)
+            newFilePathDCM = os.getcwd()
+    return newFilePathDCM
 
 
 ## Functions Used in DICOM Attribute Writing
@@ -86,7 +109,7 @@ def rand_DA_TM_DT(yrsPast = 10, yrsFuture = 0):
     randDT = randDA + randTM
     return randDA, randTM, randDT
 
-def rand_SH_LO(length = 12):
+def rand_SH_ST_LO_UC(length = 12):
     char = string.ascii_letters + string.digits
     randVal = ""
     for each in range(length):

@@ -21,7 +21,6 @@ if __name__ == "__main__":
 
     if canLog:
         canLog = log.write_log_file(f"The working directory for this program is: {getcwd()}", 4)
-        log.write_log_file("-------------", 1)
 
     # Initialize GUI and main elements to be used in this program instance #
     import rootElem

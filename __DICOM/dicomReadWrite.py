@@ -20,7 +20,8 @@ cur_attributes = db_attributes.cursor()
 
 
 ## DICOM Static Variables
-impClassUID = "1.2.7238.7553.751998"
+impClassUID = "1.2.7238.7553.751998.970815"
+
 
 ## Functions for Writing to Files
 def create_dcm_file_dir():

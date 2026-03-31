@@ -72,7 +72,7 @@ def read_files(dcmFilePath):
         dcmFile = [None] * len(dcmFilePath)
         try:
             for file in range(len(dcmFilePath)):
-                dcmFile[file] = dcmread(dcmFilePath[file])
+                dcmFile[file] = dcmread(dcmFilePath[file], force = True)
                 log.write_log_file(f"Read DICOM contents of {dcmFilePath[file]} to 'dcmFile' array at index {file}", 6)
                 if file == (len(dcmFilePath))-1:
                     log.write_log_file("All DICOM files have been read successfully.",6)

@@ -34,7 +34,7 @@ def write_log_file(logString, logType=1):
     1 = ""
     2 = Info
     3 = Error
-    4 - Initialize
+    4 = Initialize
     5 = Shutdown
     6 = DICOM
     7 = HL7

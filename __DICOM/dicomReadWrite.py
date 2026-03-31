@@ -188,16 +188,17 @@ def anonymize_data(dcmFilePath):
                                 log.write_log_file(f"Replacing value [{val}] in tag {tag} ({vr}) with {element.value}", 6)
                             except Exception as e:
                                 log.write_log_file(f"Tag {tag} with VR ({vr}) could not be randomized. Exception: {e}.", 3)
+
                         else:
+                            element.value = ''
                             if vr == 'SQ':
-                                del element
                                 log.write_log_file(f"The tag {tag} ({vr}) is a sequence with anonymization Action Code X. Deleted both itself and all nested tags.", 6)
                             else:
-                                del element
                                 log.write_log_file(f"Deleted the follow attribute during anonymization: {tag}, ({vr})", 6)
+
                 except Exception as e:
-                    del element
-                    log.write_log_file(f"Could not find tag in attributes.db: {tag} ({vr}). Deleting attribute. Exception: {e}. ", 3)
+                    element.value = ''
+                    log.write_log_file(f"Could not find tag in attributes.db: {tag} ({vr}). Clearing attribute value [{val}]. ", 3)
             else:
                 log.write_log_file(f"Anonymization of DICOM File complete: {dcmFilePath[file]}", 2)
                 print(dcmFile[file])

@@ -175,9 +175,9 @@ def anonymize_data(dcmFilePath):
                     anonVal = cur_attributes.fetchone()[0]
 
                     if anonVal != None or 0 or NULL:
-                        if anonVal != "X": ## Normally, you should choose to either delete or repalce to maintain IOD conformity. 
-                                           ## I do not have time to review all IODs to have a way to map required tags to IODs. So...
-                                           # Unless it explicitely states to remove tag (denoted by singular action code X), just randomize the value.
+                        if anonVal != "X" and vr != 'SQ': ## Normally, you should choose to either delete or repalce to maintain IOD conformity. 
+                                                          ## I do not have time to review all IODs to have a way to map required tags to IODs. So...
+                                                          ## Unless it explicitely states to remove tag (denoted by singular action code X), just randomize the value.
                             try:
                                 if len(randomizeVal_perVR[vr]) > 1:
                                     func = randomizeVal_perVR[vr][0]
@@ -188,7 +188,7 @@ def anonymize_data(dcmFilePath):
                                 log.write_log_file(f"Replacing value [{val}] in tag {tag} ({vr}) with {element.value}", 6)
                             except Exception as e:
                                 log.write_log_file(f"Tag {tag} with VR ({vr}) could not be randomized. Exception: {e}.", 3)
-                        elif anonVal == "X":
+                        else:
                             if vr == 'SQ':
                                 del element
                                 log.write_log_file(f"The tag {tag} ({vr}) is a sequence with anonymization Action Code X. Deleted both itself and all nested tags.", 6)
@@ -200,6 +200,7 @@ def anonymize_data(dcmFilePath):
                     log.write_log_file(f"Could not find tag in attributes.db: {tag} ({vr}). Deleting attribute. Exception: {e}. ", 3)
             else:
                 log.write_log_file(f"Anonymization of DICOM File complete: {dcmFilePath[file]}", 2)
+                print(dcmFile[file])
     else:
         log.write_log_file("Could not successfully read the DICOM files, therefore, they will not be anonymized.", 3)
         messagebox.showerror("Anonymization Error", "Could not anonymize the DICOM files since they could not be read. Please verify the .dcm files selected are in DICOM format.")

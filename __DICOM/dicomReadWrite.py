@@ -61,6 +61,8 @@ def rand_int_as_str(length=8):
     randIntUID = ""
     for each in range(length):
         randIntUID = f"{randIntUID}{randint(0,9)}"
+    if randIntUID[0] == '0':  ## In the event this value is used in a UID, the first value cannot be zero (https://dicom.nema.org/medical/dicom/current/output/html/part05.html#chapter_9)
+        randIntUID = f"{randint(1,9)}" + randIntUID[1:]
     return randIntUID
 
 
@@ -90,8 +92,6 @@ def rand_UI(maxLength = 64, prefixImpClassUID = True):
         prefixUID = randPrefixUID + "." + rand_int_as_str(5)
     randUID = prefixUID + "." + rand_int_as_str(8) + "." + get_date_time()[2]  ## add the current time at the end to reduce risk of this value matching any other value in the archive that may be used for testing.
     randUID = randUID[:maxLength]
-    if len(randUID) % 2 != 0:       # DICOM conformity for the UI VR is to have the value be even. If odd, remove a number at the end to make it even and ensure it doesn't exceed the maxLength.
-        randUID = randUID - rand_int_as_str(1)
     return randUID
 
 

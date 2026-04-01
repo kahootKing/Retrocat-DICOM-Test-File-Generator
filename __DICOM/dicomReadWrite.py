@@ -166,6 +166,7 @@ def anonymize_data(dcmFilePath):
     if dcmFile != [None]:
         for file in range(len(dcmFile)):
             log.write_log_file(f"Starting anonymization of file {file+1}: {dcmFilePath[file]}", 2)
+            ds = dcmFile[file]
             for element in dcmFile[file]:
                 val = element.value
                 vr = element.VR
@@ -190,18 +191,18 @@ def anonymize_data(dcmFilePath):
                                 log.write_log_file(f"Tag {tag} with VR ({vr}) could not be randomized. Exception: {e}.", 3)
 
                         else:
-                            element.value = ''
+                            del ds[tag]
                             if vr == 'SQ':
-                                log.write_log_file(f"The tag {tag} ({vr}) is a sequence with anonymization Action Code X. Deleted both itself and all nested tags.", 6)
+                                log.write_log_file(f"Deleted attributes {tag} ({vr}) and all nested sequence tags during anonymization.", 6)
                             else:
-                                log.write_log_file(f"Deleted the follow attribute during anonymization: {tag}, ({vr})", 6)
+                                log.write_log_file(f"Deleted attribute {tag} ({vr}) during anonymization.", 6)
 
                 except Exception as e:
-                    element.value = ''
-                    log.write_log_file(f"Could not find tag in attributes.db: {tag} ({vr}). Clearing attribute value [{val}]. ", 3)
+                    del ds[tag]
+                    log.write_log_file(f"Could not find tag in attributes.db: {tag} ({vr}). Deleting attribute with value [{val}]. ", 3)
             else:
-                log.write_log_file(f"Anonymization of DICOM File complete: {dcmFilePath[file]}", 2)
-                print(dcmFile[file])
+                log.write_log_file(f"Anonymization of DICOM File complete: {dcmFilePath[file]}\n", 2)
+                #print(dcmFile[file])
     else:
         log.write_log_file("Could not successfully read the DICOM files, therefore, they will not be anonymized.", 3)
         messagebox.showerror("Anonymization Error", "Could not anonymize the DICOM files since they could not be read. Please verify the .dcm files selected are in DICOM format.")

@@ -4,7 +4,7 @@
 #
 
 from asyncio.windows_events import NULL
-from pydicom import dcmread
+from pydicom import dcmread, dcmwrite
 import rootElem
 import string
 import __LOG.log as log
@@ -39,6 +39,51 @@ def create_dcm_file_dir():
             log.write_log_file(f"The file directory at {newFilePathDCM} could not be created. New files will be created at {os.getcwd()}", 4)
             newFilePathDCM = os.getcwd()
     return newFilePathDCM
+
+
+def dcm_file_write(dcmFile, dcmFilePath = None, overwrite = False):
+    if overwrite and dcmFilePath != None:
+        log.write_log_file(f"Overwriting existing DICOM files at {dcmFilePath} with new values.", 2)
+    else:
+        dcmFileDir_today = rootElem.newFilePathDCM + str(get_date_time()[0]) +"_" + str(get_date_time()[1])
+        if overwrite and dcmFilePath == None:
+            log.write_log_file("Requested to overwrite the existing DICOM file(s), but the file path was not passed. Creating new files instead.", 3)
+        elif overwrite == False:
+            log.write_log_file(f"Creating directory for the new DICOM files: {dcmFileDir_today}")
+        os.mkdir(dcmFileDir_today)
+        dcmFilePath = dcmFileDir_today
+
+
+    if dcmFilePath != None:
+        curFileIndex = 0
+        for file in dcmFile:
+            fileName = str(file[0x00080060].value) + "_" + str(file[0x00080050].value) + "_" + str(file[0x00080018].value) + ".dcm"  ## Modality_AccessionNumber_SOPInstanceUID.dcm
+            folderName = str(file[0x00100020].value) + "_" + str(file[0x00100010].value) ## PatientID_PatientsName
+            
+            if isinstance(dcmFilePath, list) and ((len(dcmFilePath)-1) > curFileIndex): # if overwriting more than one file, quick check that number DICOM files matches number of paths provided. If not, write to dcmFileDir_today.
+                path = dcmFilePath[0]
+                log.write_log_file(f"More DICOM files were provided to overwrite than paths. Creating new file at {dcmFileDir_today}", 3)
+                os.mkdir(dcmFileDir_today)
+                path = dcmFileDir_today
+            else:
+                path = dcmFilePath + "\\"+ folderName
+                if os.path.exists(path) == False:
+                    os.mkdir(path)
+                    log.write_log_file(f"Created the directory {path} to write the DICOM file(s) to.", 2)
+
+
+            if overwrite and path != dcmFileDir_today:
+                file.save_as(path)
+                log.write_log_file(f"Updated the metadata within the following DICOM file: {dcmFilePath[curFileIndex]}", 6)
+            else:
+                path = path + "\\" + fileName
+                with open(path, 'w') as newFileDcm:
+                    pass
+                dcmwrite(path, file)
+                log.write_log_file(f"Created the DICOM file: {path}", 6)
+
+            curFileIndex += 1
+                
 
 
 ## Functions Used in DICOM Attribute Writing
@@ -100,7 +145,7 @@ def rand_PN():
     Output an anonymized name in the DICOM format for the PN value representation
         randName = anonLast####^anonFirst####
     """
-    randNum = rand_int_as_str(4)
+    randNum = rand_int_as_str(6)
     last = "anonLast" + randNum
     first = "anonFirst" + randNum
     randName = f"{last}^{first}"
@@ -201,3 +246,7 @@ def anonymize_data(dcmFilePath):
     else:
         log.write_log_file("Could not successfully read the DICOM files, therefore, they will not be anonymized.", 3)
         messagebox.showerror("Anonymization Error", "Could not anonymize the DICOM files since they could not be read. Please verify the .dcm files selected are in DICOM format.")
+    
+    dcm_file_write(dcmFile = dcmFile, dcmFilePath = dcmFilePath, overwrite = False) ## Create or override the DICOM files with the anonymized data.
+
+    return dcmFile

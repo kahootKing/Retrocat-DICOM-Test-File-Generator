@@ -34,7 +34,7 @@ popupButton_y = round(popupHeight/2)
 
 
 # Functions after Clicking Buttons in Popups
-def cancel_popup():
+def close_cancel_popup():
     log.write_log_file("User clicked the 'Cancel' button. Closing popup.", 8)
     clear_hide_popup()
 
@@ -57,14 +57,13 @@ def read_dcmFile_no_anon(dcmFilePath):
 def define_basic_popup(title = "", 
                        label = "", 
                        yes_Label = "Yes", 
-                       yes_Command = cancel_popup, 
+                       yes_Command = close_cancel_popup, 
                        yes_Args = "",
                        no_Label = "No",
-                       no_Command = cancel_popup,
+                       no_Command = close_cancel_popup,
                        no_Args = "",
                        cancel_Label = "Cancel",
-                       cancel_Command = cancel_popup,
-                       cancel_Args = ""):
+                       cancel_Command = close_cancel_popup):
 
     popup.title(title)
     popup.geometry(f"{popupWidth}x{popupHeight}+{popup_x}+{popup_y}")
@@ -90,7 +89,7 @@ def define_basic_popup(title = "",
                        font =(mainFontStyle, popupFontSize),
                        width = popupButtonWidth,
                        height = popupButtonHeight,
-                       command = lambda: cancel_Command(cancel_Args))  # lambda, combined with separatated arguments, is required to ensure the function does NOT immediately run if it has any arguments.
+                       command = cancel_Command)  # lambda, combined with separatated arguments, is required to ensure the function does NOT immediately run if it has any arguments.
     cancelButton.place(x=centerButton_x, y=popupButton_y)
 
     yesButton = tk.Button(popup, 

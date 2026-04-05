@@ -96,9 +96,9 @@ def choose_DCM_file_click():
     draw_header("Choose DICOM File(s) to Update")
     dcmFilePath = filedialog.askopenfilenames(
         initialdir=os.getcwd(),
-        title="Choose DICOM Image File(s) -- (*.dcm or *.zip)",
+        title="Choose DICOM Image File(s) -- (*.dcm)",
         filetypes=(("DICOM (*.dcm)","*.dcm"), 
-                   ("Zip (*.zip)","*.zip"),
+                   #("Zip (*.zip)","*.zip"),
                    ("All Files (*)","*"))
     )
     if dcmFilePath:

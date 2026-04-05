@@ -49,7 +49,7 @@ mainElements.draw_startup_UI()
 
 
 ## Specify the behavior of the application when it is closed by the user
-popup.protocol("WM_DELETE_WINDOW", popupElements.cancel_popup)
+popup.protocol("WM_DELETE_WINDOW", popupElements.close_cancel_popup)
 mainWindow.protocol("WM_DELETE_WINDOW", mainElements.close_mainWindow)
 
 

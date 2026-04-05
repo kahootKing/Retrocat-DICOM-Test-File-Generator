@@ -41,9 +41,19 @@ def draw_dcm_file_button():
                              font=(mainFontStyle, buttonFontSize),
                              height=buttonHeight,
                              width=buttonWidth,
-                             command=choose_DCM_file_click)
-    chooseDCMFile.place(x=mainWidth/4, y=mainHeight/4)
+                             command=choose_DCM_file_click,
+                             state="disabled")
+    chooseDCMFile.place(x=round(mainWidth/4), y=round(mainHeight/6))
 
+
+def draw_bulk_anon_button():
+    bulkAnonBttn = tk.Button(mainWindow,
+                             text = "Create Anonymized DCM Files",
+                             font=(mainFontStyle, buttonFontSize),
+                             height=buttonHeight,
+                             width=buttonWidth,
+                             command=choose_DCM_file_click)
+    bulkAnonBttn.place(x=round(mainWidth/4), y = round(mainHeight/3))
 
 
 # General GUI Elements
@@ -112,3 +122,4 @@ def choose_DCM_file_click():
 def draw_startup_UI():
     draw_header("Select an Option")
     draw_dcm_file_button()
+    draw_bulk_anon_button()

@@ -11,6 +11,7 @@
 
 from os import getcwd
 
+version = "v1.0.0"
 canLog = True ## Do not remove this, the definition of the canLog variable in __main__ is used directly every time the write_log_file method is called in __LOG.log
 
 if __name__ == "__main__":
@@ -18,9 +19,9 @@ if __name__ == "__main__":
     # Initialize Logs #
     import __LOG.log as log
     canLog = log.create_log_dir()
-
     if canLog:
         canLog = log.write_log_file(f"The working directory for this program is: {getcwd()}", 4)
+        log.write_log_file(f"Running Retrocat {version}.", 4)
 
     # Initialize GUI and main elements to be used in this program instance #
     import rootElem

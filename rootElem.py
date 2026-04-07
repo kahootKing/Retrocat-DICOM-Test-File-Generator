@@ -6,6 +6,7 @@
 import os
 import tkinter as tk
 import __DICOM.dicomReadWrite as dicomReadWrite
+from __main__ import version
 
 
 # Main Window Var. #
@@ -26,7 +27,7 @@ mainHeight = round(screenHeight * heightMultip)
 
 
 ## Define main window components based on screen resolution.
-mainWindow.title("Retrocat")
+mainWindow.title(f"Retrocat ({version})")
 mainWindow.iconbitmap(True, f"{os.getcwd()}\\__GUI\\lilretrocat.ico")
 mainWindow.geometry(f"{mainWidth}x{mainHeight}")
 mainWindow.resizable(False,False)

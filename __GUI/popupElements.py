@@ -29,8 +29,8 @@ leftButton_x = buttonPadding_x
 popupHeight = round(mainHeight/5.5)
 popup_y = round((mainHeight/2)-(popupHeight/2))+popupPosOffset ## center popup with respect to the mainWindow
 buttonPadding_y = round(popupHeight/15)
-popupButtonHeight = round((popupHeight/12)-buttonPadding_y)
-popupButton_y = round(popupHeight/2)
+popupButtonHeight = round((popupHeight/12.5)-buttonPadding_y)
+popupButton_y = round(popupHeight/1.8)
 
 
 # Functions after Clicking Buttons in Popups

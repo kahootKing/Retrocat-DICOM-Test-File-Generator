@@ -11,7 +11,7 @@
 
 from os import getcwd
 
-version = "v1.0.0"
+version = "v0.0.1"
 canLog = True ## Do not remove this, the definition of the canLog variable in __main__ is used directly every time the write_log_file method is called in __LOG.log
 
 if __name__ == "__main__":

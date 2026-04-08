@@ -8,3 +8,4 @@
 *.pyc
 /DICOM Test Files
 /DICOM Files
+*.lnk

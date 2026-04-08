@@ -10,8 +10,8 @@ from __main__ import version
 
 
 # Main Window Var. #
-widthMultip = 0.45  # Main window
-heightMultip = 0.75  # Main window
+widthMultip = 0.45  # Main window (45% of monitor resolution width)
+heightMultip = 0.90  # Main window (90% of monitor resolution height)
 
 # Style Var. #
 mainFontStyle = "Georgia"
@@ -31,6 +31,7 @@ mainWindow.title(f"Retrocat ({version})")
 mainWindow.iconbitmap(True, f"{os.getcwd()}\\__GUI\\lilretrocat.ico")
 mainWindow.geometry(f"{mainWidth}x{mainHeight}")
 mainWindow.resizable(False,False)
+# mainWindow.resizable(True,True) ## for testing and drawing GUI elements. Keep commented out otherwise.
 mainWindow.configure(bg=mainWinColor)
 
 

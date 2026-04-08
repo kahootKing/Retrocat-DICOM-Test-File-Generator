@@ -17,6 +17,7 @@ headerMultip = 0.07 # Top Header
 curStepMultip = 0.17 
 headerFontSize = 24
 headerFontColor = "gray15"
+headerColor = "white smoke"
 subHeaderFontSize = 20
 subHeaderFontColor = "gray50"
 textFontSize = 10
@@ -76,15 +77,15 @@ def draw_dcm_file_button(hasDesc=True): ## This button is beneath the topmost bu
         draw_button_descriptor(x = buttonDesc_dcmOps_x,
                                y = button_y,
                                desc =
-                               "                      ****  UNDER CONSTRUCTION  ****\n"
+                               #"                      ****  UNDER CONSTRUCTION  ****\n"
                                "-- Start with one or more DICOM files to use as a basis for creating new test data. " 
                                "\n\n-- Once selected, you will be guided through a series of windows to edit patient, study, and series information.",
                                textColor = textFontColor_grayedOut)
 
 
-def draw_choose_cfg_button(hasDesc = True):
+def draw_choose_cfg_button(hasDesc = True): ## This button is below the Edit DICOM File button
     chooseCfgBttn = tk.Button(mainWindow,
-                             text = "Choose Config. File (*.cfg)",
+                             text = "Choose Configuration File (*.cfg)",
                              font=(mainFontStyle, buttonFontSize),
                              height=buttonHeight,
                              width=buttonWidth,
@@ -98,28 +99,88 @@ def draw_choose_cfg_button(hasDesc = True):
         draw_button_descriptor(x = buttonDesc_dcmOps_x,
                                y = button_y,
                                desc =
-                               "                      ****  UNDER CONSTRUCTION  ****\n"
+                               #"                      ****  UNDER CONSTRUCTION  ****\n"
                                "-- Start with a configuration file to automatically generate test data that meets certain criteria." 
-                               "\n\n-- Config. files can be created & updated using the Configuration Editor.",
+                               "\n\n-- Configuration files can be created & updated using the Configuration Editor.",
                                textColor = textFontColor_grayedOut)
 
 
 def draw_cfg_editor_button():
     cfgEditBttn = tk.Button(mainWindow,
-                            text = "Config Editor",
+                            text = "Configuration Editor",
                             font=(mainFontStyle, buttonFontSize),
-                            height=buttonHeight,
+                            height=round(buttonHeight/2),
                             width=round(buttonWidth/2),
                             state="disabled")
     button_x = round(mainWidth/15)
-    button_y = round(mainHeight/4)
+    button_y = round(mainHeight/1.52)
     cfgEditBttn.place(x=button_x, y=button_y)
+
+
+def draw_patient_db_editor_button():
+    ptdbEditBttn = tk.Button(mainWindow,
+                            text = "Patient DB Editor",
+                            font=(mainFontStyle, buttonFontSize),
+                            height=round(buttonHeight/2),
+                            width=round(buttonWidth/2),
+                            state="disabled")
+    button_x = round(mainWidth/2.7)
+    button_y = round(mainHeight/1.52)
+    ptdbEditBttn.place(x=button_x, y=button_y)
+
+
+def draw_attribute_db_editor_button():
+    attrdbEditBttn = tk.Button(mainWindow,
+                            text = "DICOM DB Editor",
+                            font=(mainFontStyle, buttonFontSize),
+                            height=round(buttonHeight/2),
+                            width=round(buttonWidth/2),
+                            state="disabled")
+    button_x = round(mainWidth/1.48)
+    button_y = round(mainHeight/1.52)
+    attrdbEditBttn.place(x=button_x, y=button_y)
+
+
+def draw_gen_settings_button():
+    genSetBttn = tk.Button(mainWindow,
+                            text = "General Settings",
+                            font=(mainFontStyle, buttonFontSize),
+                            height=round(buttonHeight/2),
+                            width=round(buttonWidth/2),
+                            state="disabled")
+    button_x = round(mainWidth/15)
+    button_y = round(mainHeight/1.3)
+    genSetBttn.place(x=button_x, y=button_y)
+
+
+def draw_dcm_template_button():
+    dcmTempBttn = tk.Button(mainWindow,
+                            text = "DCM Template Editor",
+                            font=(mainFontStyle, buttonFontSize),
+                            height=round(buttonHeight/2),
+                            width=round(buttonWidth/2),
+                            state="disabled")
+    button_x = round(mainWidth/2.7)
+    button_y = round(mainHeight/1.3)
+    dcmTempBttn.place(x=button_x, y=button_y)
+
+
+def draw_log_button():
+    logBttn = tk.Button(mainWindow,
+                            text = "Log Files",
+                            font=(mainFontStyle, buttonFontSize),
+                            height=round(buttonHeight/2),
+                            width=round(buttonWidth/2),
+                            state="disabled")
+    button_x = round(mainWidth/1.48)
+    button_y = round(mainHeight/1.3)
+    logBttn.place(x=button_x, y=button_y)
 
 
 # General GUI Elements
 def draw_header(text="", frame_x = 0, frame_y = 0, label_x = 8, label_y = header_y):
     header = tk.Frame(mainWindow,
-                      bg=mainWinColor,
+                      bg=headerColor,
                       width= mainWidth,
                       height= headerHeight,
                       highlightthickness=1, 
@@ -129,7 +190,7 @@ def draw_header(text="", frame_x = 0, frame_y = 0, label_x = 8, label_y = header
                             text=text, 
                             font=(mainFontStyle, headerFontSize),
                             fg=headerFontColor,
-                            bg=mainWinColor)
+                            bg=headerColor)
     headerLabel.place(x = label_x, y = label_y)
 
 
@@ -171,6 +232,7 @@ def close_mainWindow():
 -----------------------------------------------------------------------------""", 5)
     mainWindow.destroy()
 
+
 def choose_files_from_explorer():
     dcmFilePath = filedialog.askopenfilenames(
         initialdir=os.getcwd(),
@@ -200,11 +262,18 @@ def choose_DCM_file_click():
         popupElements.draw_anonymize_confirmation(dcmFilePath)
 
 
+## -----------------------------------------------------------------------------------------------##
 ## Startup UI Main Function
+
 def draw_startup_UI():
-    draw_header(text = "Select an Option")
+    draw_header(text = " Select an Option")
     draw_bulk_anon_button(hasDesc = True)
     draw_dcm_file_button(hasDesc = True)
     draw_choose_cfg_button(hasDesc = True)
-    draw_header(text = "Configuration & Settings", frame_y = round(mainWidth/1.6), label_y =header_y)
+    draw_header(text = " Configuration & Settings", frame_y = round(mainWidth/1.6), label_y =header_y)
     draw_cfg_editor_button()
+    draw_patient_db_editor_button()
+    draw_attribute_db_editor_button()
+    draw_gen_settings_button()
+    draw_dcm_template_button()
+    draw_log_button()

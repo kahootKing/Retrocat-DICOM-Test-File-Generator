@@ -32,6 +32,7 @@ buttonFontSize = 14
 buttonHeight = round(mainHeight / buttonHeightDiv)
 buttonWidth = round(mainWidth / buttonWidthDiv)
 headerHeight = round(mainHeight * headerMultip)
+header_y = round(headerHeight * 0.18)
 curStepHeight = round(mainHeight * curStepMultip)    
 button_dcmOps_x = round(mainWidth/2)
 buttonDesc_dcmOps_x = round(mainWidth/40)
@@ -104,20 +105,20 @@ def draw_choose_cfg_button(hasDesc = True):
 
 
 # General GUI Elements
-def draw_header(text=""):
+def draw_header(text="", frame_x = 0, frame_y = 0, label_x = 8, label_y = header_y):
     header = tk.Frame(mainWindow,
                       bg=mainWinColor,
                       width= mainWidth,
                       height= headerHeight,
                       highlightthickness=1, 
                       highlightbackground=borderLineColor)
-    header.place(x=0, y=0)
+    header.place(x=frame_x, y=frame_y)
     headerLabel = tk.Label(header, 
                             text=text, 
                             font=(mainFontStyle, headerFontSize),
                             fg=headerFontColor,
                             bg=mainWinColor)
-    headerLabel.place(x=8, y=(round(headerHeight * 0.2)))
+    headerLabel.place(x = label_x, y = label_y)
 
 
 def draw_button_descriptor(x, y, desc="", textColor = textFontColor):
@@ -197,7 +198,9 @@ def choose_DCM_file_click():
 
 ## Startup UI Main Function
 def draw_startup_UI():
-    draw_header("Select an Option")
+    draw_header(text = "Select an Option")
     draw_bulk_anon_button(hasDesc = True)
     draw_dcm_file_button(hasDesc = True)
     draw_choose_cfg_button(hasDesc = True)
+    draw_header(text = "Configuration & Settings", frame_y = round(mainWidth/1.6), label_y =header_y)
+    print("12")

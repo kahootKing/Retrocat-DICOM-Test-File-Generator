@@ -104,6 +104,18 @@ def draw_choose_cfg_button(hasDesc = True):
                                textColor = textFontColor_grayedOut)
 
 
+def draw_cfg_editor_button():
+    cfgEditBttn = tk.Button(mainWindow,
+                            text = "Config Editor",
+                            font=(mainFontStyle, buttonFontSize),
+                            height=buttonHeight,
+                            width=round(buttonWidth/2),
+                            state="disabled")
+    button_x = round(mainWidth/15)
+    button_y = round(mainHeight/4)
+    cfgEditBttn.place(x=button_x, y=button_y)
+
+
 # General GUI Elements
 def draw_header(text="", frame_x = 0, frame_y = 0, label_x = 8, label_y = header_y):
     header = tk.Frame(mainWindow,
@@ -159,10 +171,7 @@ def close_mainWindow():
 -----------------------------------------------------------------------------""", 5)
     mainWindow.destroy()
 
-
-def choose_bulk_anon_click():
-    log.write_log_file("User clicked the 'Bulk Anonymize' button.", 8)
-    #draw_header("Choose DICOM File(s) to Anonymize")
+def choose_files_from_explorer():
     dcmFilePath = filedialog.askopenfilenames(
         initialdir=os.getcwd(),
         title="Choose DICOM Image File(s) -- (*.dcm)",
@@ -172,28 +181,23 @@ def choose_bulk_anon_click():
     )
     if dcmFilePath:
         log.write_log_file(f"User selected the following file(s): {dcmFilePath}.", 8)
-        popupElements.draw_anonymize_confirmation(dcmFilePath)
     else:
         log.write_log_file("User closed the File Explorer without choosing a file.", 8)
-        draw_header("Select an Option")
+    return dcmFilePath
+
+
+def choose_bulk_anon_click():
+    log.write_log_file("User clicked the 'Bulk Anonymize' button.", 8)
+    dcmFilePath = choose_files_from_explorer()
+    if dcmFilePath:
+        popupElements.draw_anonymize_confirmation(dcmFilePath)
 
 
 def choose_DCM_file_click():
     log.write_log_file("User clicked the 'Edit DICOM File(s)' button.", 8)
-    #draw_header("Choose DICOM File(s) to Update")
-    dcmFilePath = filedialog.askopenfilenames(
-        initialdir=os.getcwd(),
-        title="Choose DICOM Image File(s) -- (*.dcm)",
-        filetypes=(("DICOM (*.dcm)","*.dcm"), 
-                   #("Zip (*.zip)","*.zip"), ## Add support for .zip files
-                   ("All Files (*)","*"))
-    )
+    dcmFilePath = choose_files_from_explorer()
     if dcmFilePath:
-        log.write_log_file(f"User selected the following file(s): {dcmFilePath}.", 8)
         popupElements.draw_anonymize_confirmation(dcmFilePath)
-    else:
-        log.write_log_file("User closed the File Explorer without choosing a file.", 8)
-        draw_header("Select an Option")
 
 
 ## Startup UI Main Function
@@ -203,4 +207,4 @@ def draw_startup_UI():
     draw_dcm_file_button(hasDesc = True)
     draw_choose_cfg_button(hasDesc = True)
     draw_header(text = "Configuration & Settings", frame_y = round(mainWidth/1.6), label_y =header_y)
-    print("12")
+    draw_cfg_editor_button()

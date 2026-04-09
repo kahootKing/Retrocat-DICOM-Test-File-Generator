@@ -10,14 +10,16 @@ from rootElem import mainHeight, mainWidth, mainWinColor, mainFontStyle # type: 
 from rootElem import mainWindow # type: ignore
 import __GUI.popupElements as popupElements # type: ignore
 import __LOG.log as log # type: ignore
+import webbrowser
 
 
 # Variables for Drawing
 headerMultip = 0.07 # Top Header
 curStepMultip = 0.17 
-headerFontSize = 24
+headerFontSize = 23
+smallHeaderFontSize = 15
 headerFontColor = "gray15"
-headerColor = "white smoke"
+headerColor = "rosy brown"
 subHeaderFontSize = 20
 subHeaderFontColor = "gray50"
 textFontSize = 10
@@ -29,11 +31,13 @@ buttonWidthDiv = 25
 buttonFontSize = 14
 
 
+
 # Calculated values commonly used in functions
 buttonHeight = round(mainHeight / buttonHeightDiv)
 buttonWidth = round(mainWidth / buttonWidthDiv)
 headerHeight = round(mainHeight * headerMultip)
 header_y = round(headerHeight * 0.18)
+smallHeader_y = round(headerHeight * 0.1)
 curStepHeight = round(mainHeight * curStepMultip)    
 button_dcmOps_x = round(mainWidth/2)
 buttonDesc_dcmOps_x = round(mainWidth/40)
@@ -171,10 +175,36 @@ def draw_log_button():
                             font=(mainFontStyle, buttonFontSize),
                             height=round(buttonHeight/2),
                             width=round(buttonWidth/2),
-                            state="disabled")
+                            command=log.open_log_dir,
+                            state="active")
     button_x = round(mainWidth/1.48)
     button_y = round(mainHeight/1.3)
     logBttn.place(x=button_x, y=button_y)
+
+
+def draw_guides_button():
+    guidesBttn = tk.Button(mainWindow,
+                            text = "Guides",
+                            font=(mainFontStyle, buttonFontSize),
+                            height=round(buttonHeight/4),
+                            width=round(buttonWidth/2),
+                            state="disabled")
+    button_x = round(mainWidth/4.8)
+    button_y = round(mainHeight/1.059)
+    guidesBttn.place(x=button_x, y=button_y)
+
+
+def draw_dcm_url_button():
+    guidesBttn = tk.Button(mainWindow,
+                            text = "DICOM Help",
+                            font=(mainFontStyle, buttonFontSize),
+                            height=round(buttonHeight/4),
+                            width=round(buttonWidth/2),
+                            command=lambda : webbrowser.open("https://dicom.nema.org/medical/dicom/current/output/chtml/part15/chapter_e.html"),
+                            state="active")
+    button_x = round(mainWidth/1.9)
+    button_y = round(mainHeight/1.059)
+    guidesBttn.place(x=button_x, y=button_y)
 
 
 # General GUI Elements
@@ -189,6 +219,22 @@ def draw_header(text="", frame_x = 0, frame_y = 0, label_x = 8, label_y = header
     headerLabel = tk.Label(header, 
                             text=text, 
                             font=(mainFontStyle, headerFontSize),
+                            fg=headerFontColor,
+                            bg=headerColor)
+    headerLabel.place(x = label_x, y = label_y)
+
+
+def draw_small_header(text="", frame_x = 0, frame_y = 0, label_x = 8, label_y = header_y):
+    header = tk.Frame(mainWindow,
+                      bg=headerColor,
+                      width= mainWidth,
+                      height= headerHeight/1.5,
+                      highlightthickness=1, 
+                      highlightbackground=borderLineColor)
+    header.place(x=frame_x, y=frame_y)
+    headerLabel = tk.Label(header, 
+                            text=text, 
+                            font=(mainFontStyle, smallHeaderFontSize),
                             fg=headerFontColor,
                             bg=headerColor)
     headerLabel.place(x = label_x, y = label_y)
@@ -277,3 +323,6 @@ def draw_startup_UI():
     draw_gen_settings_button()
     draw_dcm_template_button()
     draw_log_button()
+    draw_small_header(text = " Docs & Info", frame_y = round(mainWidth/1.01), label_y = smallHeader_y)
+    draw_guides_button()
+    draw_dcm_url_button()

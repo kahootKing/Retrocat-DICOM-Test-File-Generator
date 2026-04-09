@@ -27,7 +27,7 @@ mainHeight = round(screenHeight * heightMultip)
 
 
 ## Define main window components based on screen resolution.
-mainWindow.title(f"Retrocat ({version})")
+mainWindow.title(f"Retrocat ({version}) -- DICOM Test File Generator")
 mainWindow.iconbitmap(True, f"{os.getcwd()}\\icon\\lilretrocat.ico")
 mainWindow.geometry(f"{mainWidth}x{mainHeight}")
 mainWindow.resizable(False,False)

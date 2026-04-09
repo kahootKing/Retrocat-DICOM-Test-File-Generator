@@ -28,6 +28,11 @@ def create_log_dir():
             canLog = False
     return canLog
 
+def open_log_dir():
+    from __main__ import canLog
+    if canLog:
+        logDir = os.getcwd() + "\\log\\"
+        os.startfile(logDir)
 
 def write_log_file(logString, logType=1):
     """

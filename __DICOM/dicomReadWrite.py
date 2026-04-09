@@ -43,11 +43,11 @@ def create_dcm_file_dir():
     return newFilePathDCM
 
 
-def dcm_file_write(dcmFile, dcmFilePath = None, overwrite = False):
+def dcm_file_write(dcmFile, dcmFilePath = None, overwrite = False, launchDir = False, dirPrefix = ""):
     if overwrite and dcmFilePath != None:
         log.write_log_file(f"Overwriting existing DICOM files at {dcmFilePath} with new values.", 2)
     else:
-        dcmFileDir_today = rootElem.newFilePathDCM + str(get_date_time()[0]) +"_" + str(get_date_time()[1])
+        dcmFileDir_today = rootElem.newFilePathDCM + dirPrefix + str(get_date_time()[0]) +"_" + str(get_date_time()[1])
         if overwrite and dcmFilePath == None:
             log.write_log_file("Requested to overwrite the existing DICOM file(s), but the file path was not passed. Creating new files instead.", 3)
         elif overwrite == False:
@@ -86,6 +86,9 @@ def dcm_file_write(dcmFile, dcmFilePath = None, overwrite = False):
                 log.write_log_file(f"Created the DICOM file: {path}", 6)
 
             curFileIndex += 1
+
+    if launchDir:
+        os.startfile(dcmFilePath)
                 
 
 
@@ -215,7 +218,7 @@ randomizeVal_perVR = {
 
 
 ## DICOM functions called in conjunction with the Base DICOM Functions
-def anonymize_data(dcmFilePath):
+def anonymize_data(dcmFilePath, launchDir = False, dcmWrite = True):
     """
     https://dicom.nema.org/medical/dicom/current/output/chtml/part15/chapter_e.html
     """
@@ -261,6 +264,7 @@ def anonymize_data(dcmFilePath):
         log.write_log_file("Could not successfully read the DICOM files, therefore, they will not be anonymized.", 3)
         messagebox.showerror("Anonymization Error", "Could not anonymize the DICOM files since they could not be read. Please verify the .dcm files selected are in DICOM format.")
     
-    dcm_file_write(dcmFile = dcmFile, dcmFilePath = dcmFilePath, overwrite = False) ## Create or override the DICOM files with the anonymized data.
+    if dcmWrite:
+        dcm_file_write(dcmFile = dcmFile, dcmFilePath = dcmFilePath, overwrite = False, dirPrefix = "ANON_", launchDir = launchDir) ## Create or override the DICOM files with the anonymized data.
 
     return dcmFile

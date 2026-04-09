@@ -42,7 +42,7 @@ def close_cancel_popup():
 def anonymize_dcmFile(dcmFilePath):
     log.write_log_file("User clicked the 'Yes' button.", 8)
     log.write_log_file(f"Preparing to anonymize DICOM Files: {dcmFilePath}", 6)
-    dcmFile = dicomReadWrite.anonymize_data(dcmFilePath)
+    dcmFile = dicomReadWrite.anonymize_data(dcmFilePath, launchDir = True, dcmWrite = True)
     clear_hide_popup()
 
 

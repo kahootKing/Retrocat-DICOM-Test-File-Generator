@@ -51,7 +51,7 @@ def dcm_file_write(dcmFile, dcmFilePath = None, overwrite = False, launchDir = F
         if overwrite and dcmFilePath == None:
             log.write_log_file("Requested to overwrite the existing DICOM file(s), but the file path was not passed. Creating new files instead.", 3)
         elif overwrite == False:
-            log.write_log_file(f"Creating directory for the new DICOM files: {dcmFileDir_today}")
+            log.write_log_file(f"Creating directory for the new DICOM files: {dcmFileDir_today} \n", 2)
         os.mkdir(dcmFileDir_today)
         dcmFilePath = dcmFileDir_today
 
@@ -139,12 +139,43 @@ def update_file_header(dcmFile):
     """
     Update the file header of the user-selected base DICOM File
     to use Imp Class UID Value for the Retrocat program.
+    Also check that certain attributes are present in the dataset. If not, add dummy value.
+    This is so that if the contents of the DICOM file are used to create file paths/file names, the tags will definitely be there.
     """
+    curFile = 1
     for file in dcmFile:
         file.file_meta[0x00020012].value = impClassUID
         file.file_meta[0x00020013].value = impVersionName
         file.file_meta[0x00020016].value = srcAppEntTitle
         file.file_meta[0x00020003].value = rand_UI(prefixImpClassUID = True)  ## Media Storage SOP Instance UID
+
+        if 0x00080060 not in file: # Modality
+            val = "OT"
+            file.add_new(0x00080060,"CS", val)
+            log.write_log_file(f"The Modality attribute (00080060) was not in file {curFile}. Creating with the value '{val}'. ", 6)
+
+        if 0x00080050 not in file: # Accession Number
+            val = rand_SH_ST_LO_LT_UC_UT_AE()
+            file.add_new(0x00080050, "SH" , val)
+            log.write_log_file(f"The Accession Number attribute (00080050) was not in file {curFile}. Creating with the value '{val}'. ", 6)
+
+        if 0x00080018 not in file: # SOP Instance UID
+            val = rand_UI()
+            file.add_new(0x00080018, "UI", val)
+            log.write_log_file(f"The SOP Instance UID attribute (00080018) was not in file {curFile}. Creating with the value '{val}'. ", 6)
+
+        if 0x00100020 not in file: # Patient ID
+            val = rand_SH_ST_LO_LT_UC_UT_AE()
+            file.add_new(0x00100020, "LO", val)
+            log.write_log_file(f"The Patient ID attribute (00100020) was not in file {curFile}. Creating with the value '{val}'. ", 6)
+
+        if 0x00100010 not in file: # Patient Name
+            val = rand_PN()
+            file.add_new(0x00100010, "PN", val)
+            log.write_log_file(f"The Patient Name attribute (00100010) was not in file {curFile}. Creating with the value '{val}'. ", 6)
+    
+        curFile += 1
+
 
 def rand_UI(maxLength = 64, prefixImpClassUID = True):
     if prefixImpClassUID == True:

@@ -24,4 +24,5 @@ if __name__ == "__main__":
         log.write_log_file(f"Running Retrocat {version}.", 4)
 
     # Initialize GUI and main elements to be used in this program instance #
+    import __CONFIG.settings_def
     import rootElem

@@ -26,7 +26,7 @@
   </PropertyGroup>
   <ItemGroup>
     <Compile Include="rootElem.py" />
-    <Compile Include="__CONFIG\general_settings.py" />
+    <Compile Include="__CONFIG\settings_def.py" />
     <Compile Include="__CONFIG\__init__.py" />
     <Compile Include="__DATABASE\patient_data.py" />
     <Compile Include="__DATABASE\__init__.py" />

@@ -4,7 +4,6 @@
 ##
 # This includes error popups, confirmation popups, and other user inputs.
 
-from ast import Lambda
 import tkinter as tk
 import __LOG.log as log
 from rootElem import mainHeight, mainWidth, mainFontStyle

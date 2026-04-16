@@ -45,6 +45,7 @@ default_attributes = {
 }
 
 default_cfg = SimpleNamespace(name = "Default Config (Program)",
+                       description = "(PROGRAM DEFAULT) This is the program default. It creates a single-frame X-ray (DX) within a single study acquired within the past five years. Transfer Syntax is the DICOM default (Implicit VR Little Endian)",
                        filePath = "",
                        listOrder = 0,
                        defaultCfg = True,
@@ -53,7 +54,7 @@ default_cfg = SimpleNamespace(name = "Default Config (Program)",
                        numStudies = 1,
                        numSeries = [1],             # each val in the brackets corresponds to the numStudies
                        numInstances = [1],          # number of images per series.  Could be rand.
-                       numFrames = ["rand", 1, 1],  # num frames per Instance. If [0] is "rand", treat [1] and [2] as lower & upper bound. Otherwise, length should match sum of numInstances
+                       numFrames = [1],  # num frames per Instance. If [0] is "rand", treat [1] and [2] as lower & upper bound. Otherwise, length should match sum of numInstances
                        attributes = default_attributes)
 
 
@@ -65,7 +66,7 @@ def conv_namespace_to_xml(namespace, rootName = "config"):
         namespace_key = getattr(namespace, key)
         if isinstance(namespace_key,dict):  ## dictionary
             for val in namespace_key:
-                subkey_xml = ET.SubElement(key_xml, key, value= f"{val}") 
+                subkey_xml = ET.SubElement(key_xml, "attr", value= f"{val}") 
                 attr_list = namespace_key[val]
                 for each in attr_list:
                     subkey2_xml = ET.SubElement(subkey_xml,"elem")
